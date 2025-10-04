@@ -9,7 +9,7 @@ Un sitio web elegante y moderno para la invitación de los XV años de Sari, con
 - **Tipografías Modernas**: Playfair Display para títulos, Inter para texto
 - **Cuenta Regresiva**: Contador en tiempo real hasta el evento
 - **Formulario RSVP**: Confirmación de asistencia con guardado local
-- **Galería de Fotos**: Grid responsive con 6 imágenes placeholder
+- **Galería de Fotos**: Grid responsive con 10 imágenes
 - **Accesibilidad**: Navegación por teclado, contraste adecuado, etiquetas semánticas
 - **SEO Optimizado**: Meta tags, Open Graph, estructura semántica
 
@@ -22,12 +22,16 @@ sari-xv-invitacion/
 ├── script.js               # JavaScript funcional
 ├── assets/
 │   ├── img/                # Imágenes de la galería
-│   │   ├── ph-1.jpg        # Placeholder 1
-│   │   ├── ph-2.jpg        # Placeholder 2
-│   │   ├── ph-3.jpg        # Placeholder 3
-│   │   ├── ph-4.jpg        # Placeholder 4
-│   │   ├── ph-5.jpg        # Placeholder 5
-│   │   └── ph-6.jpg        # Placeholder 6
+│   │   ├── ph-1.jpg        # Imagen 1
+│   │   ├── ph-2.jpg        # Imagen 2
+│   │   ├── ph-3.jpg        # Imagen 3
+│   │   ├── ph-4.jpg        # Imagen 4
+│   │   ├── ph-5.jpg        # Imagen 5
+│   │   ├── ph-6.jpg        # Imagen 6
+│   │   ├── ph-7.jpg        # Imagen 7
+│   │   ├── ph-8.jpg        # Imagen 8
+│   │   ├── ph-9.jpg        # Imagen 9
+│   │   └── ph-10.jpg       # Imagen 10
 │   └── icons/
 │       ├── favicon.svg     # Icono del navegador
 │       └── app-icon.svg    # Icono de la app
@@ -125,15 +129,19 @@ Formato: `YYYY-MM-DDTHH:MM:SS±HH:MM`
 ### 🖼️ Reemplazar Imágenes
 
 #### Imágenes de la Galería
-1. Reemplazar archivos en `assets/img/`:
-   - `ph-1.jpg` → Foto de preparativos
+1. **Imágenes actuales** en `assets/img/`:
+   - `ph-1.jpg` → Preparativos para los XV
    - `ph-2.jpg` → Celebración familiar
    - `ph-3.jpg` → Momentos especiales
    - `ph-4.jpg` → Recuerdos de infancia
    - `ph-5.jpg` → Amigos y familia
    - `ph-6.jpg` → Celebrando la vida
+   - `ph-7.jpg` → Momentos únicos
+   - `ph-8.jpg` → Recuerdos especiales
+   - `ph-9.jpg` → Celebración con seres queridos
+   - `ph-10.jpg` → Aventuras y sueños
 
-2. **Especificaciones recomendadas**:
+2. **Para reemplazar imágenes**:
    - Formato: JPG
    - Dimensiones: 400x300px (mínimo)
    - Tamaño: < 500KB por imagen

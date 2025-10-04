@@ -1,50 +1,51 @@
 // ===== INICIALIZACIÓN =====
 document.addEventListener('DOMContentLoaded', function() {
+    setupHeroBackground();
     initializeApp();
+    setupMicroInteractions();
 });
 
+// ===== HERO BACKGROUND =====
+function setupHeroBackground() {
+    const hero = document.querySelector('#inicio.hero');
+    if (hero) {
+        const bg = hero.getAttribute('data-hero-bg');
+        if (bg) {
+            document.documentElement.style.setProperty('--hero-bg', `url("${bg}")`);
+        }
+    }
+}
+
 function initializeApp() {
-    setupMobileMenu();
     setupCountdown();
     setupRSVPForm();
     setupSmoothScroll();
     setupToast();
     setupNavbarScroll();
+    
+    // TODO: Reintroducir fecha dentro de la sección de cuenta regresiva en el rediseño
 }
 
-// ===== MENÚ MÓVIL =====
-function setupMobileMenu() {
-    const navToggle = document.querySelector('.nav-toggle');
-    const navMenu = document.querySelector('.nav-menu');
+// ===== MICRO-INTERACCIONES =====
+function setupMicroInteractions() {
+    // Entrada suave del hero
+    const hero = document.querySelector('#inicio');
     
-    if (!navToggle || !navMenu) return;
-    
-    navToggle.addEventListener('click', function() {
-        navToggle.classList.toggle('active');
-        navMenu.classList.toggle('active');
-    });
-    
-    // Cerrar menú al hacer clic en un enlace
-    const navLinks = document.querySelectorAll('.nav-link');
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            navToggle.classList.remove('active');
-            navMenu.classList.remove('active');
+    if (hero) {
+        hero.animate([
+            { opacity: 0, transform: 'translateY(10px)' },
+            { opacity: 1, transform: 'translateY(0)' }
+        ], {
+            duration: 600,
+            easing: 'ease-out'
         });
-    });
-    
-    // Cerrar menú al hacer clic fuera
-    document.addEventListener('click', function(e) {
-        if (!navToggle.contains(e.target) && !navMenu.contains(e.target)) {
-            navToggle.classList.remove('active');
-            navMenu.classList.remove('active');
-        }
-    });
+    }
 }
+
 
 // ===== NAVBAR SCROLL EFFECT =====
 function setupNavbarScroll() {
-    const header = document.querySelector('.header');
+    const header = document.querySelector('.site-header');
     let lastScrollTop = 0;
     
     window.addEventListener('scroll', function() {
@@ -54,7 +55,7 @@ function setupNavbarScroll() {
             header.style.background = 'rgba(255, 255, 255, 0.98)';
             header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
         } else {
-            header.style.background = 'rgba(255, 255, 255, 0.95)';
+            header.style.background = 'rgba(255, 255, 255, 0.6)';
             header.style.boxShadow = 'none';
         }
         
@@ -74,7 +75,7 @@ function setupSmoothScroll() {
             const targetElement = document.querySelector(targetId);
             
             if (targetElement) {
-                const headerHeight = document.querySelector('.header').offsetHeight;
+                const headerHeight = document.querySelector('.site-header').offsetHeight;
                 const targetPosition = targetElement.offsetTop - headerHeight - 20;
                 
                 window.scrollTo({
@@ -90,7 +91,7 @@ function setupSmoothScroll() {
 function scrollToSection(sectionId) {
     const targetElement = document.getElementById(sectionId);
     if (targetElement) {
-        const headerHeight = document.querySelector('.header').offsetHeight;
+        const headerHeight = document.querySelector('.site-header').offsetHeight;
         const targetPosition = targetElement.offsetTop - headerHeight - 20;
         
         window.scrollTo({
@@ -429,17 +430,8 @@ function throttle(func, limit) {
 
 // Navegación por teclado mejorada
 document.addEventListener('keydown', function(e) {
-    // ESC para cerrar menú móvil
+    // ESC para cerrar toast
     if (e.key === 'Escape') {
-        const navToggle = document.querySelector('.nav-toggle');
-        const navMenu = document.querySelector('.nav-menu');
-        
-        if (navToggle && navToggle.classList.contains('active')) {
-            navToggle.classList.remove('active');
-            navMenu.classList.remove('active');
-        }
-        
-        // Cerrar toast
         hideToast();
     }
 });
