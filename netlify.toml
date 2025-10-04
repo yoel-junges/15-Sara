@@ -1,0 +1,123 @@
+# Configuración de Netlify para el sitio de invitación XV de Sari
+# Documentación: https://docs.netlify.com/configure-builds/file-based-configuration/
+
+[build]
+  # Directorio de publicación (donde están los archivos estáticos)
+  publish = "."
+  
+  # Comando de build (no necesario para sitio estático)
+  command = "echo 'Sitio estático - no se requiere build'"
+
+[build.environment]
+  # Versión de Node.js (opcional, para futuras mejoras)
+  NODE_VERSION = "18"
+
+# Headers de seguridad y cache
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Seguridad
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    
+    # Cache para archivos estáticos
+    Cache-Control = "public, max-age=3600"
+
+# Headers específicos para CSS y JS
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Content-Type = "text/css"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Content-Type = "application/javascript"
+
+# Headers para imágenes
+[[headers]]
+  for = "/*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Content-Type = "image/jpeg"
+
+[[headers]]
+  for = "/*.jpeg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Content-Type = "image/jpeg"
+
+[[headers]]
+  for = "/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Content-Type = "image/png"
+
+[[headers]]
+  for = "/*.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Content-Type = "image/svg+xml"
+
+# Headers para fuentes
+[[headers]]
+  for = "/*.woff"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Content-Type = "font/woff"
+
+[[headers]]
+  for = "/*.woff2"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Content-Type = "font/woff2"
+
+# Headers para HTML
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+    Content-Type = "text/html; charset=utf-8"
+
+# Redirecciones (si es necesario)
+# [[redirects]]
+#   from = "/old-page"
+#   to = "/new-page"
+#   status = 301
+
+# Configuración de formularios (para futuras implementaciones)
+[build.processing]
+  skip_processing = false
+
+[build.processing.css]
+  bundle = false
+  minify = true
+
+[build.processing.js]
+  bundle = false
+  minify = true
+
+[build.processing.html]
+  pretty_urls = true
+
+# Configuración de funciones (para futuras mejoras)
+# [functions]
+#   directory = "netlify/functions"
+
+# Configuración de plugins (opcional)
+# [[plugins]]
+#   package = "@netlify/plugin-sitemap"
+
+# Variables de entorno (si se necesitan en el futuro)
+# [context.production.environment]
+#   NODE_ENV = "production"
+
+# [context.deploy-preview.environment]
+#   NODE_ENV = "development"
+
+# [context.branch-deploy.environment]
+#   NODE_ENV = "development"

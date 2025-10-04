@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sari - Mis XV años | 08.11.25</title>
+    <meta name="description" content="Invitación a celebrar los XV años de Sari. Sábado 08 de noviembre de 2025. Quinta Magnolia, Esperanza, Santa Fe.">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Sari - Mis XV años">
+    <meta property="og:description" content="Te invito a celebrar mis XV años. Sábado 08 de noviembre de 2025">
+    <meta property="og:image" content="./assets/img/og-image.jpg">
+    <meta property="og:url" content="">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="./assets/icons/favicon.svg">
+    <link rel="apple-touch-icon" href="./assets/icons/app-icon.svg">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header id="top" class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="2" fill="none"/>
+                        <path d="M12 20 L18 26 L28 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>Sari</span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#inicio" class="nav-link">Inicio</a></li>
+                    <li><a href="#countdown" class="nav-link">Cuenta regresiva</a></li>
+                    <li><a href="#mensaje" class="nav-link">Mensaje</a></li>
+                    <li><a href="#lugar" class="nav-link">Lugar</a></li>
+                    <li><a href="#fotos" class="nav-link">Fotos</a></li>
+                    <li><a href="#confirmacion" class="nav-link">Confirmación</a></li>
+                    <li><a href="#abono" class="nav-link">Tarjeta/Abono</a></li>
+                </ul>
+                <div class="nav-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Sari</h1>
+                <h2 class="hero-subtitle">Mis XV años</h2>
+                <div class="hero-date">Sábado 08.11.25</div>
+                <button class="btn btn-primary" onclick="scrollToSection('countdown')">
+                    Ver detalles
+                </button>
+            </div>
+        </div>
+        <div class="hero-decoration"></div>
+    </section>
+
+    <!-- Countdown Section -->
+    <section id="countdown" class="countdown" data-event-datetime="2025-11-08T21:00:00-03:00">
+        <div class="container">
+            <h2 class="section-title">Faltan</h2>
+            <div class="countdown-container">
+                <div class="countdown-item">
+                    <span class="countdown-number" id="days">00</span>
+                    <span class="countdown-label">días</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="hours">00</span>
+                    <span class="countdown-label">horas</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="minutes">00</span>
+                    <span class="countdown-label">minutos</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="seconds">00</span>
+                    <span class="countdown-label">segundos</span>
+                </div>
+            </div>
+            <p class="countdown-note">* La hora puede cambiar y se confirmará más adelante</p>
+        </div>
+    </section>
+
+    <!-- Message Section -->
+    <section id="mensaje" class="message">
+        <div class="container">
+            <h2 class="section-title">Te invito a celebrar mis XV años</h2>
+            <div class="message-content">
+                <p>Hay historias y personas que no voy a olvidar y recuerdos como este que siempre voy a guardar. Porque son parte de mi vida es mi deseo que compartan este día tan especial.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section id="lugar" class="location">
+        <div class="container">
+            <h2 class="section-title">Lugar</h2>
+            <div class="location-content">
+                <div class="location-info">
+                    <h3 class="location-name">Quinta "Magnolia"</h3>
+                    <p class="location-address">Ruta 70 — Esperanza, Santa Fe</p>
+                    <button class="btn btn-secondary" onclick="openGoogleMaps()">
+                        Abrir en Google Maps
+                    </button>
+                </div>
+                <!-- TODO: Activar mapa embed cuando se tenga la ubicación exacta -->
+                <!-- <div class="location-map">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=..." 
+                        width="100%" 
+                        height="300" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                </div> -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Photos Section -->
+    <section id="fotos" class="photos">
+        <div class="container">
+            <h2 class="section-title">Fotos</h2>
+            <div class="photos-grid">
+                <div class="photo-item">
+                    <img src="./assets/img/ph-1.jpg" alt="Foto de Sari - Preparativos para los XV" loading="lazy">
+                </div>
+                <div class="photo-item">
+                    <img src="./assets/img/ph-2.jpg" alt="Foto de Sari - Celebración familiar" loading="lazy">
+                </div>
+                <div class="photo-item">
+                    <img src="./assets/img/ph-3.jpg" alt="Foto de Sari - Momentos especiales" loading="lazy">
+                </div>
+                <div class="photo-item">
+                    <img src="./assets/img/ph-4.jpg" alt="Foto de Sari - Recuerdos de infancia" loading="lazy">
+                </div>
+                <div class="photo-item">
+                    <img src="./assets/img/ph-5.jpg" alt="Foto de Sari - Amigos y familia" loading="lazy">
+                </div>
+                <div class="photo-item">
+                    <img src="./assets/img/ph-6.jpg" alt="Foto de Sari - Celebrando la vida" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RSVP Section -->
+    <section id="confirmacion" class="rsvp">
+        <div class="container">
+            <h2 class="section-title">Confirmación de asistencia</h2>
+            <form class="rsvp-form" id="rsvpForm">
+                <div class="form-group">
+                    <label for="nombre">Nombre completo *</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Asistencia *</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="asistencia" value="si" required>
+                            <span>Sí confirmo</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="asistencia" value="no" required>
+                            <span>No confirmo</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="restricciones">¿Tenés alguna restricción alimenticia?</label>
+                    <textarea id="restricciones" name="restricciones" rows="3" placeholder="Cuéntanos sobre cualquier restricción alimenticia..."></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Enviar confirmación</button>
+            </form>
+            
+            <!-- TODO: Implementar opciones de envío -->
+            <!-- 
+            Opciones para implementar en próximos pasos:
+            1. Envío por WhatsApp usando API
+            2. Google Forms integrado
+            3. Google Sheets via Apps Script
+            4. Email automático
+            -->
+        </div>
+    </section>
+
+    <!-- Payment Section -->
+    <section id="abono" class="payment">
+        <div class="container">
+            <h2 class="section-title">Valor de la tarjeta</h2>
+            
+            <div class="payment-table">
+                <table>
+                    <tr>
+                        <td>Adultos</td>
+                        <td>$35</td>
+                    </tr>
+                    <tr>
+                        <td>Adolescentes</td>
+                        <td>$25</td>
+                    </tr>
+                    <tr>
+                        <td>Niños</td>
+                        <td>$20</td>
+                    </tr>
+                    <tr>
+                        <td>Menores de 5</td>
+                        <td>No abonan</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="payment-info">
+                <h3>Abonar tarjeta</h3>
+                <div class="payment-alias">
+                    Alias: <strong>roxanajossen.mp</strong>
+                </div>
+                <p class="payment-note">
+                    <!-- TODO: Editar fecha límite según necesidades -->
+                    Fecha límite de pago: 15 de octubre de 2025
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-message">Te espero, Sari.</p>
+                <div class="footer-links">
+                    <a href="#top" class="back-to-top">Volver arriba</a>
+                </div>
+                <p class="footer-credits">
+                    Hecho con ❤️ para celebrar mis XV años
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <div class="toast-content">
+            <span class="toast-message"></span>
+            <button class="toast-close">&times;</button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+</html>
