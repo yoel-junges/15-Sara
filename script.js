@@ -188,6 +188,29 @@ function scrollToSection(sectionId) {
   });
 })();
 
+// ===== Play del header conectado al player interno =====
+(function(){
+  const topBtn = document.getElementById('topPlayBtn');
+  const floatBtn = document.getElementById('musicToggle'); // botón flotante ya existente
+  if(!topBtn || !floatBtn) return;
+
+  // Al tocar el botón del header, disparamos el toggle del player existente
+  topBtn.addEventListener('click', ()=>{
+    floatBtn.click();
+  });
+
+  // Mantener estados sincronizados observando aria-pressed del botón flotante
+  const sync = ()=> {
+    const pressed = floatBtn.getAttribute('aria-pressed') === 'true';
+    topBtn.setAttribute('aria-pressed', pressed ? 'true' : 'false');
+  };
+  // 1) al cargar
+  sync();
+  // 2) cuando cambie el flotante (MutationObserver)
+  const mo = new MutationObserver(sync);
+  mo.observe(floatBtn, { attributes: true, attributeFilter: ['aria-pressed'] });
+})();
+
 // ===== Confirmación (RSVP) por WhatsApp =====
 (function(){
   const form = document.getElementById('rsvpForm');
@@ -312,6 +335,61 @@ function scrollToSection(sectionId) {
     window.open(url, '_blank', 'noopener,noreferrer');
   });
 
+})();
+
+// ===== Música con overlay de entrada =====
+(function(){
+  const btn  = document.getElementById('musicToggle');
+  const audio = document.getElementById('bgAudio');
+  const overlay = document.getElementById('entryOverlay');
+  const entryBtn = document.getElementById('entryBtn');
+  if(!btn || !audio) return;
+
+  let ctx, src, gain, playing = false, fading = false;
+
+  function ensureGraph(){
+    if(ctx) return;
+    try{
+      ctx = new (window.AudioContext || window.webkitAudioContext)();
+      src = ctx.createMediaElementSource(audio);
+      gain = ctx.createGain();
+      gain.gain.value = 0.0; // fade-in suave
+      src.connect(gain).connect(ctx.destination);
+      audio.volume = 1.0; // fallback
+    }catch{ ctx=null; gain=null; }
+  }
+  function fadeTo(target=1.0, ms=400){
+    if(!gain){ audio.volume = target; return Promise.resolve(); }
+    if(fading) return Promise.resolve();
+    return new Promise(res=>{
+      fading = true;
+      const start = gain.gain.value, diff = target - start, t0 = performance.now();
+      function step(t){ const p = Math.min(1,(t - t0)/ms);
+        gain.gain.value = start + diff*p;
+        if(p<1) requestAnimationFrame(step); else { fading=false; res(); }
+      }
+      requestAnimationFrame(step);
+    });
+  }
+  async function play(){
+    ensureGraph();
+    try{ await ctx?.resume?.(); }catch{}
+    await audio.play();
+    await fadeTo(1.0, 450);
+    playing = true; btn.setAttribute('aria-pressed','true');
+  }
+  function stop(){
+    fadeTo(0.0, 350).then(()=>{ audio.pause(); playing=false; btn.setAttribute('aria-pressed','false'); });
+  }
+
+  // Botón flotante (toggle)
+  btn.addEventListener('click', ()=>{ if(!playing) play(); else stop(); });
+
+  // Overlay de entrada: primer gesto del usuario arranca música y se oculta
+  entryBtn?.addEventListener('click', async ()=>{
+    try{ await play(); }catch{}
+    overlay?.setAttribute('hidden','');
+  });
 })();
 
 // ===== GOOGLE MAPS =====
