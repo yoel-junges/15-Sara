@@ -1073,6 +1073,35 @@ input:focus, textarea:focus{
   display:none !important; 
 }
 
+/* ===== BACK TO TOP ===== */
+.back-top{
+  position: fixed;
+  right: 14px;
+  bottom: 80px; /* arriba del botón de música si existiera */
+  z-index: 1100;
+  display: inline-block;
+  padding: .6rem .9rem;
+  border-radius: 999px;
+  background: rgba(255,255,255,.9);
+  border: 1px solid rgba(0,0,0,.06);
+  box-shadow: 0 8px 24px rgba(20,40,80,.12);
+  font-weight: 600;
+  text-decoration: none;
+  color: #2c3b52;
+  font-size: .9rem;
+  transition: all .3s ease;
+}
+
+.back-top:hover{
+  background: rgba(255,255,255,1);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(20,40,80,.18);
+}
+
+html{ 
+  scroll-behavior: smooth; /* fallback básico */
+}
+
 /* ===== VENUE CARD ===== */
 .venue-card{ 
   display:grid; 

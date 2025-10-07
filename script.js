@@ -204,6 +204,54 @@ function scrollToSection(sectionId) {
   });
 })();
 
+// ===== Back to top robusto =====
+(function(){
+  const btn = document.getElementById('backToTop');
+  if(!btn) return;
+
+  // Smooth manual para navegadores que ignoran scroll-behavior en JS
+  function smoothToTop(duration = 450){
+    const start = window.scrollY || window.pageYOffset;
+    const t0 = performance.now();
+    const ease = t => t<.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3)/2; // easeInOutCubic
+
+    function step(now){
+      const p = Math.min(1, (now - t0) / duration);
+      const y = start * (1 - ease(p));
+      window.scrollTo(0, y);
+      if(p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  btn.addEventListener('click', (e)=>{
+    e.preventDefault(); e.stopPropagation();
+    // Intenta API nativa; si el navegador no anima, hacemos fallback
+    try{
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      // Comprobación: si en 100ms no bajó nada, usamos fallback manual
+      const prev = window.pageYOffset;
+      setTimeout(()=>{ if (window.pageYOffset === prev) smoothToTop(); }, 120);
+    }catch{
+      smoothToTop();
+    }
+  });
+
+  // Mostrar/ocultar según scroll (opcional, deja el botón más limpio)
+  let vis = false;
+  function toggle(){
+    const should = (window.pageYOffset || 0) > 300;
+    if(should !== vis){
+      vis = should;
+      btn.style.opacity = should ? '1' : '0';
+      btn.style.pointerEvents = should ? 'auto' : 'none';
+      btn.style.transition = 'opacity .25s ease';
+    }
+  }
+  toggle();
+  window.addEventListener('scroll', toggle, { passive: true });
+})();
+
 // ===== Player único: controla #bgAudio con el botón #topPlayBtn =====
 (function(){
   const btn  = document.getElementById('topPlayBtn');

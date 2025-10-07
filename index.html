@@ -59,13 +59,16 @@
     <link rel="preload" as="image" href="assets/img/ph-1.jpg" imagesrcset="assets/img/ph-1.jpg">
 </head>
 <body>
+    <!-- Ancla de página -->
+    <div id="top" aria-hidden="true"></div>
+    
     <!-- Header -->
-    <header id="top" class="site-header" aria-label="Encabezado">
+    <header class="site-header" aria-label="Encabezado">
       <div class="container header-bar" role="navigation" aria-label="Barra superior">
         <!-- Izquierda: marca -->
-        <a href="#inicio" class="brand" aria-label="Ir a inicio">
-          <span class="brand-text">Sari</span>
-        </a>
+            <a href="#inicio" class="brand" aria-label="Ir a inicio">
+                <span class="brand-text">Sari</span>
+            </a>
 
         <!-- Centro: botón play/pause delicado -->
         <button id="topPlayBtn"
@@ -86,7 +89,7 @@
 
         <!-- Derecha: leyenda -->
         <div class="right-label" aria-hidden="true">Mis 15</div>
-      </div>
+        </div>
     </header>
 
     <!-- Decorative Layer -->
@@ -111,7 +114,7 @@
     </section>
 
     <!-- Countdown Section -->
-    <section id="countdown" class="section countdown" data-event-datetime="2025-11-08T21:00:00-03:00" aria-live="polite">
+    <section id="countdown" class="section countdown" data-event-datetime="2025-11-08T20:30:00-03:00" aria-live="polite">
         <div class="container">
 
             <header class="countdown-head">
@@ -123,7 +126,7 @@
                 <svg class="cal-ico" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M7 2v3M17 2v3M3 9h18M4 6h16a1 1 0 0 1 1 1v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                 </svg>
-                <p id="eventDateText">Sábado 08.11.25 · 21:00 hs</p>
+                <p id="eventDateText">Sábado 08.11.25 · 20:30 hs</p>
             </div>
 
             <!-- Ticker 1 línea -->
@@ -282,12 +285,12 @@
         <div class="container">
             <div class="section-head">
                 <div class="section-sep" data-variant="bow" aria-hidden="true">
-                    <span class="line"></span>
+                <span class="line"></span>
                     <svg class="icon"><use href="assets/icons/decos.svg#bow"/></svg>
-                    <span class="line"></span>
+                <span class="line"></span>
                 </div>
                 <h2 class="section-title">Dress code</h2>
-            </div>
+                </div>
 
             <div class="dc-card" role="group" aria-label="Código de vestimenta">
                 <div class="dc-text">
@@ -307,7 +310,7 @@
                       <!-- colitas -->
                       <path d="M32 17l-6 6m6-6l6 6" stroke-width="2" fill="none" class="bow-tail"/>
                     </svg>
-                  </div>
+                </div>
 
                   
                 </div>
@@ -316,17 +319,17 @@
     </section>
 
     <section id="confirmacion" class="section">
-      <div class="container">
+        <div class="container">
         <div class="section-head">
           <div class="section-sep" data-variant="spark" aria-hidden="true">
             <span class="line"></span>
             <svg class="icon"><use href="assets/icons/decos.svg#spark"></use></svg>
             <span class="line"></span>
           </div>
-          <h2 class="section-title">Confirmación de asistencia</h2>
+            <h2 class="section-title">Confirmación de asistencia</h2>
         </div>
 
-        <form id="rsvpForm" class="form-card" novalidate data-wa-number="3496504811">
+        <form id="rsvpForm" class="form-card" novalidate data-wa-number="5493496512511">
           <!-- honeypot anti-bot -->
           <input type="text" name="empresa" id="empresa" autocomplete="off" tabindex="-1" aria-hidden="true" hidden>
 
@@ -334,34 +337,34 @@
             <label for="nombre">Nombre completo</label>
             <input type="text" id="nombre" name="nombre" required autocomplete="name">
             <small class="error" id="err-nombre"></small>
-          </div>
-
+                </div>
+                
           <div class="field">
             <span>Asistencia</span>
             <div class="radios" role="group" aria-label="Asistencia">
               <label><input type="radio" name="asistencia" value="Sí confirmo" required> Sí confirmo</label>
               <label><input type="radio" name="asistencia" value="No confirmo" required> No confirmo</label>
-            </div>
+                    </div>
             <small class="error" id="err-asistencia"></small>
-          </div>
-
+                </div>
+                
           <div class="field">
-            <label for="restricciones">¿Tenés alguna restricción alimenticia?</label>
+                    <label for="restricciones">¿Tenés alguna restricción alimenticia?</label>
             <textarea id="restricciones" name="restricciones" rows="3"></textarea>
           </div>
 
           <div class="field">
             <label for="acompanantes">Cantidad de acompañantes</label>
             <input type="number" id="acompanantes" name="acompanantes" min="0" max="10" inputmode="numeric" pattern="[0-9]*">
-          </div>
-
+                </div>
+                
           <div class="actions actions-center">
             <button type="submit" id="sendBtn" class="btn-primary btn-wide">Enviar confirmación</button>
           </div>
-        </form>
-
+            </form>
+            
         <div class="toast" id="toast" role="status" aria-live="polite">Confirmación guardada.</div>
-      </div>
+        </div>
     </section>
 
     <!-- Payment Section -->
@@ -373,7 +376,7 @@
                     <svg class="icon"><use href="assets/icons/decos.svg#star"/></svg>
                     <span class="line"></span>
                 </div>
-                <h2 class="section-title">Valor de la tarjeta</h2>
+            <h2 class="section-title">Valor de la tarjeta</h2>
             </div>
             
             <div class="payment-table">
@@ -416,7 +419,7 @@
             <div class="footer-content">
                 <p class="footer-message">Te espero, Sari.</p>
                 <div class="footer-links">
-                    <a href="#top" class="back-to-top">Volver arriba</a>
+                    <a id="backToTop" href="#top" class="back-top" role="button" aria-label="Volver arriba">Volver arriba</a>
                 </div>
                 <p class="footer-credits">
                     Hecho con ❤️ para celebrar mis XV años
