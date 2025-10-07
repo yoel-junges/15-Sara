@@ -17,13 +17,8 @@ function setupHeroBackground() {
 }
 
 function initializeApp() {
-    setupCountdown();
-    setupRSVPForm();
     setupSmoothScroll();
-    setupToast();
     setupNavbarScroll();
-    
-    // TODO: Reintroducir fecha dentro de la sección de cuenta regresiva en el rediseño
 }
 
 // ===== MICRO-INTERACCIONES =====
@@ -101,233 +96,223 @@ function scrollToSection(sectionId) {
     }
 }
 
-// ===== CUENTA REGRESIVA =====
-function setupCountdown() {
-    const countdownSection = document.querySelector('.countdown');
-    if (!countdownSection) return;
-    
-    const eventDateTime = countdownSection.getAttribute('data-event-datetime');
-    if (!eventDateTime) return;
-    
-    const targetDate = new Date(eventDateTime).getTime();
-    
-    function updateCountdown() {
-        const now = new Date().getTime();
-        const distance = targetDate - now;
-        
-        if (distance < 0) {
-            // El evento ya pasó
-            showEventStarted();
-            return;
-        }
-        
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        
-        // Actualizar elementos del DOM
-        updateCountdownElement('days', days);
-        updateCountdownElement('hours', hours);
-        updateCountdownElement('minutes', minutes);
-        updateCountdownElement('seconds', seconds);
-    }
-    
-    function updateCountdownElement(id, value) {
-        const element = document.getElementById(id);
-        if (element) {
-            element.textContent = value.toString().padStart(2, '0');
-        }
-    }
-    
-    function showEventStarted() {
-        const countdownContainer = document.querySelector('.countdown-container');
-        const countdownNote = document.querySelector('.countdown-note');
-        
-        if (countdownContainer) {
-            countdownContainer.innerHTML = `
-                <div style="grid-column: 1 / -1; text-align: center; padding: 2rem;">
-                    <h3 style="font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--celeste); margin-bottom: 1rem;">
-                        ¡Llegó el gran día!
-                    </h3>
-                    <p style="font-size: 1.1rem; color: var(--gris-medio);">
-                        ¡Es hora de celebrar!
-                    </p>
-                </div>
-            `;
-        }
-        
-        if (countdownNote) {
-            countdownNote.style.display = 'none';
-        }
-    }
-    
-    // Actualizar inmediatamente y luego cada segundo
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-}
+// ===== CUENTA REGRESIVA HORIZONTAL PREMIUM =====
+(function(){
+    const root = document.querySelector('#countdown');
+    if(!root) return;
 
-// ===== FORMULARIO RSVP =====
-function setupRSVPForm() {
-    const form = document.getElementById('rsvpForm');
-    if (!form) return;
-    
-    // Cargar datos guardados
-    loadSavedRSVP();
-    
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const formData = new FormData(form);
-        const rsvpData = {
-            nombre: formData.get('nombre'),
-            asistencia: formData.get('asistencia'),
-            restricciones: formData.get('restricciones') || '',
-            fechaEnvio: new Date().toISOString()
-        };
-        
-        // Validar datos
-        if (!rsvpData.nombre.trim()) {
-            showToast('Por favor, ingresá tu nombre completo', 'error');
-            return;
+    const targetISO = root.getAttribute('data-event-datetime');
+    const target = targetISO ? new Date(targetISO) : null;
+
+      const el = {
+        d: document.getElementById('cd-days'),
+        h: document.getElementById('cd-hours'),
+        m: document.getElementById('cd-mins'),
+        s: document.getElementById('cd-secs'),
+        dateText: document.getElementById('eventDateText')
+      };
+
+    // Pintar fecha legible desde el atributo
+    if (target && el.dateText){
+        try{
+            const fmtDate = new Intl.DateTimeFormat('es-AR', { weekday:'long', day:'2-digit', month:'2-digit', year:'2-digit'}).format(target);
+            const fmtTime = new Intl.DateTimeFormat('es-AR', { hour:'2-digit', minute:'2-digit', hour12:false }).format(target);
+            // Capitalizar primera letra del weekday
+            const nice = fmtDate.charAt(0).toUpperCase() + fmtDate.slice(1);
+            el.dateText.textContent = `${nice} · ${fmtTime} hs`;
+        }catch{}
+    }
+
+    function pad(n){ return String(n).padStart(2,'0'); }
+
+    function update(){
+        if(!target) return;
+        const now = new Date();
+        const diff = target.getTime() - now.getTime();
+
+        if(diff <= 0){
+          el.d.textContent = el.h.textContent = el.m.textContent = el.s.textContent = '00';
+          root.querySelector('.countdown-head h2').textContent = '¡Llegó el gran día!';
+          clearInterval(tid);
+          return;
         }
-        
-        if (!rsvpData.asistencia) {
-            showToast('Por favor, confirmá tu asistencia', 'error');
-            return;
-        }
-        
-        // Guardar en localStorage
-        saveRSVPToLocalStorage(rsvpData);
-        
-        // Mostrar confirmación
-        const mensaje = rsvpData.asistencia === 'si' 
-            ? `¡Gracias ${rsvpData.nombre}! Confirmamos tu asistencia. Te esperamos.`
-            : `Gracias ${rsvpData.nombre} por confirmar. Lamentamos que no puedas asistir.`;
-        
-        showToast(mensaje, 'success');
-        
-        // Limpiar formulario (opcional)
-        // form.reset();
+        const totalSec = Math.floor(diff/1000);
+        const days = Math.floor(totalSec/86400);
+        const hours = Math.floor((totalSec%86400)/3600);
+        const mins = Math.floor((totalSec%3600)/60);
+        const secs = totalSec%60;
+
+        el.d.textContent = pad(days);
+        el.h.textContent = pad(hours);
+        el.m.textContent = pad(mins);
+        el.s.textContent = pad(secs);
+    }
+
+
+    update();
+    const tid = setInterval(update, 1000);
+})();
+
+// Animar separadores al entrar en viewport
+(function(){
+  const seps = document.querySelectorAll('.section-sep');
+  if(!seps.length || !('IntersectionObserver' in window)) return;
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
     });
-    
-    // Auto-guardar borrador mientras escriben
-    const inputs = form.querySelectorAll('input, textarea');
-    inputs.forEach(input => {
-        input.addEventListener('input', function() {
-            saveDraftToLocalStorage();
-        });
-    });
-}
+  }, {threshold: 0.2});
+  seps.forEach(s => io.observe(s));
+})();
 
-function saveRSVPToLocalStorage(rsvpData) {
-    try {
-        localStorage.setItem('rsvpSariXV', JSON.stringify(rsvpData));
-    } catch (error) {
-        console.error('Error guardando RSVP:', error);
+// OPCIONAL: autoinsertar separadores en secciones sin uno declarado
+(function(){
+  const sections = document.querySelectorAll('section.section');
+  sections.forEach(sec=>{
+    if(sec.id === 'inicio') return;
+    const container = sec.querySelector('.container') || sec;
+    const has = container.querySelector('.section-sep');
+    if(has) return;
+    const div = document.createElement('div');
+    div.className = 'section-sep';
+    div.setAttribute('data-variant','heart');
+    div.setAttribute('aria-hidden','true');
+    div.innerHTML = `
+      <span class="line"></span>
+      <svg class="icon"><use href="assets/icons/decos.svg#heart"/></svg>
+      <span class="line"></span>`;
+    container.insertBefore(div, container.firstElementChild);
+  });
+})();
+
+// ===== Confirmación (RSVP) por WhatsApp =====
+(function(){
+  const form = document.getElementById('rsvpForm');
+  if(!form) return;
+
+  const LS_KEY = 'rsvpSariXV';
+  const toast = document.getElementById('toast');
+  const btnSend = document.getElementById('sendBtn');
+  const btnSave = document.getElementById('saveBtn');
+
+  // Cargar borrador si existe
+  try{
+    const saved = JSON.parse(localStorage.getItem(LS_KEY) || 'null');
+    if(saved){
+      form.nombre.value = saved.nombre || '';
+      if(saved.asistencia){
+        const r = form.querySelector(`input[name="asistencia"][value="${saved.asistencia}"]`);
+        if(r) r.checked = true;
+      }
+      form.restricciones.value = saved.restricciones || '';
+      form.acompanantes.value = saved.acompanantes ?? '';
     }
-}
+  }catch{}
 
-function loadSavedRSVP() {
-    try {
-        const saved = localStorage.getItem('rsvpSariXV');
-        if (saved) {
-            const rsvpData = JSON.parse(saved);
-            const form = document.getElementById('rsvpForm');
-            
-            if (form) {
-                // Llenar campos con datos guardados
-                const nombreInput = form.querySelector('#nombre');
-                const restriccionesTextarea = form.querySelector('#restricciones');
-                
-                if (nombreInput && rsvpData.nombre) {
-                    nombreInput.value = rsvpData.nombre;
-                }
-                
-                if (restriccionesTextarea && rsvpData.restricciones) {
-                    restriccionesTextarea.value = rsvpData.restricciones;
-                }
-                
-                if (rsvpData.asistencia) {
-                    const asistenciaRadio = form.querySelector(`input[name="asistencia"][value="${rsvpData.asistencia}"]`);
-                    if (asistenciaRadio) {
-                        asistenciaRadio.checked = true;
-                    }
-                }
-            }
-        }
-    } catch (error) {
-        console.error('Error cargando RSVP guardado:', error);
-    }
-}
+  function showToast(msg){
+    if(!toast) return;
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(()=> toast.classList.remove('show'), 1800);
+  }
 
-function saveDraftToLocalStorage() {
-    const form = document.getElementById('rsvpForm');
-    if (!form) return;
-    
-    const formData = new FormData(form);
-    const draftData = {
-        nombre: formData.get('nombre') || '',
-        asistencia: formData.get('asistencia') || '',
-        restricciones: formData.get('restricciones') || '',
-        isDraft: true
+  function saveDraft(){
+    const data = {
+      nombre: form.nombre.value.trim(),
+      asistencia: (form.querySelector('input[name="asistencia"]:checked') || {}).value || '',
+      restricciones: form.restricciones.value.trim(),
+      acompanantes: form.acompanantes.value ? Number(form.acompanantes.value) : ''
     };
-    
-    try {
-        localStorage.setItem('rsvpSariXVDraft', JSON.stringify(draftData));
-    } catch (error) {
-        console.error('Error guardando borrador:', error);
-    }
-}
+    localStorage.setItem(LS_KEY, JSON.stringify(data));
+    showToast('Borrador guardado.');
+  }
 
-// ===== TOAST NOTIFICATIONS =====
-function setupToast() {
-    const toast = document.getElementById('toast');
-    const closeBtn = toast?.querySelector('.toast-close');
-    
-    if (closeBtn) {
-        closeBtn.addEventListener('click', function() {
-            hideToast();
-        });
-    }
-    
-    // Auto-hide después de 5 segundos
-    window.addEventListener('toastShow', function() {
-        setTimeout(hideToast, 5000);
-    });
-}
+  if(btnSave) btnSave.addEventListener('click', saveDraft);
 
-function showToast(message, type = 'info') {
-    const toast = document.getElementById('toast');
-    const messageElement = toast?.querySelector('.toast-message');
-    
-    if (!toast || !messageElement) return;
-    
-    messageElement.textContent = message;
-    
-    // Cambiar color según tipo
-    toast.className = 'toast';
-    if (type === 'success') {
-        toast.style.borderLeftColor = '#28a745';
-    } else if (type === 'error') {
-        toast.style.borderLeftColor = '#dc3545';
-    } else if (type === 'warning') {
-        toast.style.borderLeftColor = '#ffc107';
-    }
-    
-    // Mostrar toast
-    setTimeout(() => {
-        toast.classList.add('show');
-        window.dispatchEvent(new Event('toastShow'));
-    }, 100);
-}
+  function setError(id, msg){
+    const el = document.getElementById(id);
+    if(el) el.textContent = msg || '';
+  }
+  function clearErrors(){
+    setError('err-nombre','');
+    setError('err-asistencia','');
+  }
 
-function hideToast() {
-    const toast = document.getElementById('toast');
-    if (toast) {
-        toast.classList.remove('show');
+  function buildMessage({nombre, asistencia, restricciones, acompanantes}) {
+    const root = document.querySelector('#countdown');
+    const iso = root ? root.getAttribute('data-event-datetime') : null;
+    let fechaLegible = '';
+    if(iso){
+      try{
+        const target = new Date(iso);
+        const d = new Intl.DateTimeFormat('es-AR', { weekday:'long', day:'2-digit', month:'2-digit', year:'2-digit'}).format(target);
+        const t = new Intl.DateTimeFormat('es-AR', { hour:'2-digit', minute:'2-digit', hour12:false }).format(target);
+        fechaLegible = `${d.charAt(0).toUpperCase()}${d.slice(1)} · ${t} hs`;
+      }catch{}
     }
-}
+
+    const line = (k,v)=> v ? `${k}: ${v}` : `${k}: -`;
+    const parts = [
+      'Confirmación de asistencia — Mis XV',
+      fechaLegible ? `Evento: ${fechaLegible}` : '',
+      line('Nombre', nombre),
+      line('Asistencia', asistencia),
+      line('Acompañantes', (acompanantes === '' ? '-' : acompanantes)),
+      line('Restricciones', (restricciones || '-'))
+    ].filter(Boolean);
+
+    return parts.join('\n');
+  }
+
+  form.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    clearErrors();
+
+    // Honeypot
+    if(form.empresa && form.empresa.value){ return; }
+
+    const nombre = form.nombre.value.trim();
+    const asistenciaEl = form.querySelector('input[name="asistencia"]:checked');
+    const asistencia = asistenciaEl ? asistenciaEl.value : '';
+    const restricciones = form.restricciones.value.trim();
+    const acompanantes = form.acompanantes.value ? Number(form.acompanantes.value) : '';
+
+    let valid = true;
+    if(!nombre){
+      setError('err-nombre','Ingresá tu nombre completo.');
+      valid = false;
+    }
+    if(!asistencia){
+      setError('err-asistencia','Elegí una opción.');
+      valid = false;
+    }
+    if(!valid) return;
+
+    // Guardar borrador
+    saveDraft();
+
+    // Armar link de WhatsApp
+    const phone = form.getAttribute('data-wa-number') || '';
+    if(!phone){
+      showToast('No se configuró el número de WhatsApp.');
+      return;
+    }
+
+    const text = buildMessage({nombre, asistencia, restricciones, acompanantes});
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+
+    // Deshabilitar mientras abrimos
+    const btnSend = document.getElementById('sendBtn');
+    if(btnSend){ btnSend.disabled = true; setTimeout(()=> { btnSend.disabled = false; }, 1500); }
+
+    // Abrir WhatsApp
+    window.open(url, '_blank', 'noopener,noreferrer');
+  });
+
+})();
 
 // ===== GOOGLE MAPS =====
 function openGoogleMaps() {

@@ -20,7 +20,8 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
     
     <!-- Styles -->
     <link rel="stylesheet" href="styles.css">
@@ -41,6 +42,7 @@
                 </span>
                 <span class="brand-text">Sari</span>
             </a>
+            <span class="header-note" aria-hidden="false">Mis 15</span>
         </div>
     </header>
 
@@ -66,28 +68,44 @@
     </section>
 
     <!-- Countdown Section -->
-    <section id="countdown" class="countdown" data-event-datetime="2025-11-08T21:00:00-03:00">
+    <section id="countdown" class="section countdown" data-event-datetime="2025-11-08T21:00:00-03:00" aria-live="polite">
         <div class="container">
-            <h2 class="section-title">Faltan</h2>
-            <div class="countdown-container">
-                <div class="countdown-item">
-                    <span class="countdown-number" id="days">00</span>
-                    <span class="countdown-label">días</span>
+
+            <header class="countdown-head">
+                <h2>Faltan</h2>
+            </header>
+
+            <!-- Tarjeta de fecha -->
+            <div class="date-card" role="group" aria-label="Fecha del evento">
+                <svg class="cal-ico" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M7 2v3M17 2v3M3 9h18M4 6h16a1 1 0 0 1 1 1v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                <p id="eventDateText">Sábado 08.11.25 · 21:00 hs</p>
+            </div>
+
+            <!-- Ticker 1 línea -->
+            <div class="ticker line" role="group" aria-label="Cuenta regresiva">
+                <div class="unit">
+                    <div class="value" id="cd-days">00</div>
+                    <div class="label">días</div>
                 </div>
-                <div class="countdown-item">
-                    <span class="countdown-number" id="hours">00</span>
-                    <span class="countdown-label">horas</span>
+                <span class="sep" aria-hidden="true">:</span>
+                <div class="unit">
+                    <div class="value" id="cd-hours">00</div>
+                    <div class="label">hs</div>
                 </div>
-                <div class="countdown-item">
-                    <span class="countdown-number" id="minutes">00</span>
-                    <span class="countdown-label">minutos</span>
+                <span class="sep" aria-hidden="true">:</span>
+                <div class="unit">
+                    <div class="value" id="cd-mins">00</div>
+                    <div class="label">min</div>
                 </div>
-                <div class="countdown-item">
-                    <span class="countdown-number" id="seconds">00</span>
-                    <span class="countdown-label">segundos</span>
+                <span class="sep" aria-hidden="true">:</span>
+                <div class="unit">
+                    <div class="value" id="cd-secs">00</div>
+                    <div class="label">seg</div>
                 </div>
             </div>
-            <p class="countdown-note">* La hora puede cambiar y se confirmará más adelante</p>
+
         </div>
     </section>
 
@@ -104,7 +122,12 @@
     <!-- Location Section -->
     <section id="lugar" class="location">
         <div class="container">
-            <h2 class="section-title">Lugar</h2>
+            <div class="section-sep" data-variant="star" aria-hidden="true">
+                <span class="line"></span>
+                <svg class="icon"><use href="assets/icons/decos.svg#star"/></svg>
+                <span class="line"></span>
+            </div>
+            <h2 class="section-title center">Lugar</h2>
             <div class="location-content">
                 <div class="location-info">
                     <h3 class="location-name">Quinta "Magnolia"</h3>
@@ -113,17 +136,7 @@
                         Abrir en Google Maps
                     </button>
                 </div>
-                <!-- TODO: Activar mapa embed cuando se tenga la ubicación exacta -->
-                <!-- <div class="location-map">
-                    <iframe 
-                        src="https://www.google.com/maps/embed?pb=..." 
-                        width="100%" 
-                        height="300" 
-                        style="border:0;" 
-                        allowfullscreen="" 
-                        loading="lazy">
-                    </iframe>
-                </div> -->
+                
             </div>
         </div>
     </section>
@@ -131,7 +144,14 @@
     <!-- Photos Section -->
     <section id="fotos" class="photos">
         <div class="container">
-            <h2 class="section-title">Fotos</h2>
+            <h2 class="section-title center">Fotos</h2>
+
+            <div class="section-sep" data-variant="heart" aria-hidden="true">
+                <span class="line"></span>
+                <svg class="icon"><use href="assets/icons/decos.svg#heart"/></svg>
+                <span class="line"></span>
+            </div>
+
             <div class="photos-grid">
                 <div class="photo-item">
                     <img src="./assets/img/ph-1.jpg" alt="Foto de Sari - Preparativos para los XV" loading="lazy">
@@ -168,66 +188,113 @@
     </section>
 
     <!-- RSVP Section -->
-    <section id="confirmacion" class="rsvp">
+    <section id="dresscode" class="section">
         <div class="container">
-            <h2 class="section-title">Confirmación de asistencia</h2>
-            <form class="rsvp-form" id="rsvpForm">
-                <div class="form-group">
-                    <label for="nombre">Nombre completo *</label>
-                    <input type="text" id="nombre" name="nombre" required>
+            <div class="section-sep" data-variant="bow" aria-hidden="true">
+                <span class="line"></span>
+                <svg class="icon"><use href="assets/icons/decos.svg#bow"/></svg>
+                <span class="line"></span>
+            </div>
+
+            <h2 class="section-title center">Dress code</h2>
+
+            <div class="dc-card" role="group" aria-label="Código de vestimenta">
+                <div class="dc-text">
+                  <p class="dc-main">
+                    <span class="dc-script">Elegante</span>
+                  </p>
+
+                  <!-- Moño debajo de “Elegante” -->
+                  <div class="dc-bow" aria-hidden="true">
+                    <svg viewBox="0 0 64 24" class="bow-svg">
+                      <!-- lazo izquierdo -->
+                      <path d="M2 12c0-5 7-10 12-10 3 0 6 2 8 5-2 3-5 5-8 5S2 17 2 12z" />
+                      <!-- lazo derecho -->
+                      <path d="M62 12c0-5-7-10-12-10-3 0-6 2-8 5 2 3 5 5 8 5s12 5 12 0z" />
+                      <!-- nudo -->
+                      <rect x="28" y="7" width="8" height="10" rx="3" ry="3"/>
+                      <!-- colitas -->
+                      <path d="M32 17l-6 6m6-6l6 6" stroke-width="2" fill="none" class="bow-tail"/>
+                    </svg>
+                  </div>
+
+                  
                 </div>
-                
-                <div class="form-group">
-                    <label>Asistencia *</label>
-                    <div class="radio-group">
-                        <label class="radio-label">
-                            <input type="radio" name="asistencia" value="si" required>
-                            <span>Sí confirmo</span>
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="asistencia" value="no" required>
-                            <span>No confirmo</span>
-                        </label>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="restricciones">¿Tenés alguna restricción alimenticia?</label>
-                    <textarea id="restricciones" name="restricciones" rows="3" placeholder="Cuéntanos sobre cualquier restricción alimenticia..."></textarea>
-                </div>
-                
-                <button type="submit" class="btn btn-primary">Enviar confirmación</button>
-            </form>
-            
-            <!-- TODO: Implementar opciones de envío -->
-            <!-- 
-            Opciones para implementar en próximos pasos:
-            1. Envío por WhatsApp usando API
-            2. Google Forms integrado
-            3. Google Sheets via Apps Script
-            4. Email automático
-            -->
+            </div>
         </div>
+    </section>
+
+    <section id="confirmacion" class="section">
+      <div class="container">
+        <div class="section-sep" data-variant="spark" aria-hidden="true">
+          <span class="line"></span>
+          <svg class="icon"><use href="assets/icons/decos.svg#spark"></use></svg>
+          <span class="line"></span>
+        </div>
+
+        <h2 class="section-title center">Confirmación de asistencia</h2>
+
+        <form id="rsvpForm" class="form-card" novalidate data-wa-number="3496504811">
+          <!-- honeypot anti-bot -->
+          <input type="text" name="empresa" id="empresa" autocomplete="off" tabindex="-1" aria-hidden="true" hidden>
+
+          <div class="field">
+            <label for="nombre">Nombre completo</label>
+            <input type="text" id="nombre" name="nombre" required autocomplete="name">
+            <small class="error" id="err-nombre"></small>
+          </div>
+
+          <div class="field">
+            <span>Asistencia</span>
+            <div class="radios" role="group" aria-label="Asistencia">
+              <label><input type="radio" name="asistencia" value="Sí confirmo" required> Sí confirmo</label>
+              <label><input type="radio" name="asistencia" value="No confirmo" required> No confirmo</label>
+            </div>
+            <small class="error" id="err-asistencia"></small>
+          </div>
+
+          <div class="field">
+            <label for="restricciones">¿Tenés alguna restricción alimenticia?</label>
+            <textarea id="restricciones" name="restricciones" rows="3"></textarea>
+          </div>
+
+          <div class="field">
+            <label for="acompanantes">Cantidad de acompañantes</label>
+            <input type="number" id="acompanantes" name="acompanantes" min="0" max="10" inputmode="numeric" pattern="[0-9]*">
+          </div>
+
+          <div class="actions actions-center">
+            <button type="submit" id="sendBtn" class="btn-primary btn-wide">Enviar confirmación</button>
+          </div>
+        </form>
+
+        <div class="toast" id="toast" role="status" aria-live="polite">Confirmación guardada.</div>
+      </div>
     </section>
 
     <!-- Payment Section -->
     <section id="abono" class="payment">
         <div class="container">
+            <div class="section-sep" data-variant="star" aria-hidden="true">
+                <span class="line"></span>
+                <svg class="icon"><use href="assets/icons/decos.svg#star"/></svg>
+                <span class="line"></span>
+            </div>
             <h2 class="section-title">Valor de la tarjeta</h2>
             
             <div class="payment-table">
                 <table>
                     <tr>
                         <td>Adultos</td>
-                        <td>$35</td>
+                        <td>$35.000</td>
                     </tr>
                     <tr>
                         <td>Adolescentes</td>
-                        <td>$25</td>
+                        <td>$25.000</td>
                     </tr>
                     <tr>
                         <td>Niños</td>
-                        <td>$20</td>
+                        <td>$20.000</td>
                     </tr>
                     <tr>
                         <td>Menores de 5</td>
