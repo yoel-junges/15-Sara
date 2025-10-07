@@ -211,6 +211,36 @@ function scrollToSection(sectionId) {
   mo.observe(floatBtn, { attributes: true, attributeFilter: ['aria-pressed'] });
 })();
 
+// ===== Versión de build: detectar cambios y forzar recarga suave de assets =====
+(function(){
+  const LS_KEY = 'siteAssetVersion';
+  fetch('version.txt', { cache: 'no-store' })
+    .then(r => r.text())
+    .then(v => {
+      const newV = (v || '').trim();
+      if(!newV) return;
+      window.__ASSET_VERSION__ = newV;
+      const oldV = localStorage.getItem(LS_KEY);
+      if(oldV !== newV){
+        const stamp = '?v=' + encodeURIComponent(newV);
+        document.querySelectorAll('link[rel="stylesheet"]').forEach(link=>{
+          if(!link.href) return;
+          if(!link.href.includes(stamp)){
+            link.href = link.href.split('?')[0] + stamp;
+          }
+        });
+        document.querySelectorAll('script[src]').forEach(s=>{
+          const src = s.getAttribute('src');
+          if(!src) return;
+          if(!src.includes('version-check.js')){
+            s.src = src.split('?')[0] + stamp;
+          }
+        });
+        localStorage.setItem(LS_KEY, newV);
+      }
+    }).catch(()=>{});
+})();
+
 // ===== Confirmación (RSVP) por WhatsApp =====
 (function(){
   const form = document.getElementById('rsvpForm');
@@ -440,25 +470,7 @@ function fallbackCopyTextToClipboard(text) {
     document.body.removeChild(textArea);
 }
 
-// ===== LAZY LOADING PARA IMÁGENES =====
-function setupLazyLoading() {
-    const images = document.querySelectorAll('img[loading="lazy"]');
-    
-    if ('IntersectionObserver' in window) {
-        const imageObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    img.src = img.src || img.dataset.src;
-                    img.classList.remove('lazy');
-                    imageObserver.unobserve(img);
-                }
-            });
-        });
-        
-        images.forEach(img => imageObserver.observe(img));
-    }
-}
+// Lazy loading nativo: el navegador lo maneja con loading="lazy"
 
 // ===== PERFORMANCE Y OPTIMIZACIONES =====
 

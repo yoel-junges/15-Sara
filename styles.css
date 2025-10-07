@@ -51,6 +51,15 @@
   
   /* Transiciones */
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Ritmo y contenedor */
+  --space-1: .5rem;
+  --space-2: .75rem;
+  --space-3: 1rem;
+  --space-4: 1.25rem;
+  --space-5: 1.75rem;
+  --space-6: 2.25rem;
+  --container: min(1000px, 92vw);
 }
 
 /* ===== RESET Y BASE ===== */
@@ -94,15 +103,9 @@ h2 {
 }
 
 /* ===== UTILIDADES ===== */
-.container {
-  width: min(1100px, 92vw);
-  margin-inline: auto;
-  padding: 0 var(--spacing-md);
-}
+.container{ width: var(--container); margin-inline:auto; }
 
-.section {
-  padding: 72px 0;
-}
+.section{ padding: var(--space-6) 0; }
 
 .section h2 {
   margin-bottom: 0.6rem;
@@ -125,10 +128,19 @@ h2 {
 }
 
 /* Sub-separadores sutiles bajo títulos (opcional: usar cuando quieras) */
-.section .lead{
-  text-align: center;
-  opacity: .85;
+.section-head{ 
+  display:grid; 
+  justify-items:center; 
+  text-align:center; 
+  row-gap: var(--space-2);
+  margin-bottom: var(--space-4);
 }
+.section-title{ margin:0; }
+.section-lead{ margin:0; opacity:.9; max-width: 58ch; }
+.section-sep{ margin: var(--space-2) auto 0; }
+
+.center { text-align: center; }
+.stack { display:grid; row-gap: var(--space-3); }
 
 /* Marcador/divisor para entrada de sección (Fotos) */
 /* ===== Separadores globales ===== */
@@ -174,6 +186,38 @@ h2 {
   margin-bottom: .6rem;
   letter-spacing: .2px;
   text-shadow: 0 1px 0 rgba(255,255,255,.35);
+}
+
+/* Mobile-first por secciones */
+#lugar .card{ margin-top: var(--space-3); }
+#lugar .section-head{ margin-bottom: var(--space-3); }
+
+#fotos .section-head{ margin-bottom: var(--space-3); }
+.gallery{ display:grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 12px; }
+@media (max-width: 640px){ .gallery{ grid-template-columns: repeat(2,1fr); gap:10px; } }
+
+#dresscode .dc-card{ margin-top: var(--space-3); }
+
+#confirmacion .form-card{ margin-top: var(--space-3); }
+#confirmacion .actions{ justify-content:center; }
+
+#abono .price-table{ margin-top: var(--space-3); }
+
+/* Títulos + separadores + texto: centrado sólido en mobile */
+@media (max-width: 760px){
+  .section-head, .section-title, .section-lead{ text-align:center; justify-items:center; }
+  .section-sep{ width: min(680px, 92vw); }
+}
+
+/* Evitar huecos entre bloques */
+.section > .container > *:first-child{ margin-top: 0; }
+.section > .container > *:last-child{ margin-bottom: 0; }
+
+/* Ticker ajustes */
+.ticker.line{ justify-content:center; }
+@media (max-width:700px){
+  .ticker.line{ flex-wrap:wrap; justify-content:center; }
+  .ticker.line .unit{ margin-inline:auto; }
 }
 
 /* ===== HEADER SIMPLIFICADO ===== */
@@ -747,33 +791,34 @@ h2 {
   background: linear-gradient(135deg, var(--fondo), rgba(255, 255, 255, 0.8));
 }
 
-.photos-grid {
+.gallery{
   display: grid;
-  gap: 12px;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
   max-width: 1000px;
   margin: 0 auto;
 }
-
-.photo-item {
-  display: block;
-  border-radius: 12px;
-  overflow: hidden;
-  transform: translateZ(0);
-  box-shadow: 0 10px 25px rgba(20, 40, 80, 0.12);
+.photo{
+  display:block;
+  border-radius: 16px;
+  overflow:hidden;
+  background: rgba(0,0,0,.04);
+  box-shadow: 0 8px 24px rgba(20,40,80,.10);
   transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
-
-.photo-item:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 18px 40px rgba(20, 40, 80, 0.18);
-}
-
-.photo-item img {
-  width: 100%;
-  height: 250px;
+.photo img{
+  display:block;
+  width:100%;
+  height:auto;
+  aspect-ratio: 2 / 3;
   object-fit: cover;
-  display: block;
+  transition: transform .4s ease, filter .4s ease, opacity .3s ease;
+  will-change: transform;
+}
+.photo:hover{ transform: translateY(-2px); box-shadow: 0 12px 32px rgba(20,40,80,.14); }
+.photo:hover img{ transform: scale(1.02); }
+@media (max-width: 640px){
+  .gallery{ grid-template-columns: repeat(2, 1fr); gap: 10px; }
 }
 
 /* ===== RSVP SECTION ===== */

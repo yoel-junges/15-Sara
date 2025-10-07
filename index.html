@@ -25,6 +25,9 @@
     
     <!-- Styles -->
     <link rel="stylesheet" href="styles.css">
+    <script>
+      window.__ASSET_VERSION__ = null;
+    </script>
     
     <!-- Preload hero image for better performance -->
     <link rel="preload" as="image" href="assets/img/ph-1.jpg" imagesrcset="assets/img/ph-1.jpg">
@@ -134,14 +137,16 @@
     </section>
 
     <!-- Location Section -->
-    <section id="lugar" class="location">
+    <section id="lugar" class="location section">
         <div class="container">
-            <div class="section-sep" data-variant="star" aria-hidden="true">
-                <span class="line"></span>
-                <svg class="icon"><use href="assets/icons/decos.svg#star"/></svg>
-                <span class="line"></span>
+            <div class="section-head">
+                <div class="section-sep" data-variant="star" aria-hidden="true">
+                    <span class="line"></span>
+                    <svg class="icon"><use href="assets/icons/decos.svg#star"/></svg>
+                    <span class="line"></span>
+                </div>
+                <h2 class="section-title">Lugar</h2>
             </div>
-            <h2 class="section-title center">Lugar</h2>
             <div class="location-content">
                 <div class="location-info">
                     <h3 class="location-name">Quinta "Magnolia"</h3>
@@ -156,47 +161,78 @@
     </section>
 
     <!-- Photos Section -->
-    <section id="fotos" class="photos">
+    <section id="fotos" class="photos section">
         <div class="container">
-            <h2 class="section-title center">Fotos</h2>
-
-            <div class="section-sep" data-variant="heart" aria-hidden="true">
-                <span class="line"></span>
-                <svg class="icon"><use href="assets/icons/decos.svg#heart"/></svg>
-                <span class="line"></span>
+            <div class="section-head">
+                <div class="section-sep" data-variant="heart" aria-hidden="true">
+                    <span class="line"></span>
+                    <svg class="icon"><use href="assets/icons/decos.svg#heart"/></svg>
+                    <span class="line"></span>
+                </div>
+                <h2 class="section-title">Fotos</h2>
             </div>
 
-            <div class="photos-grid">
-                <div class="photo-item">
-                    <img src="./assets/img/ph-1.jpg" alt="Foto de Sari - Preparativos para los XV" loading="lazy">
-                </div>
-                <div class="photo-item">
-                    <img src="./assets/img/ph-2.jpg" alt="Foto de Sari - Celebración familiar" loading="lazy">
-                </div>
-                <div class="photo-item">
-                    <img src="./assets/img/ph-3.jpg" alt="Foto de Sari - Momentos especiales" loading="lazy">
-                </div>
-                <div class="photo-item">
-                    <img src="./assets/img/ph-4.jpg" alt="Foto de Sari - Recuerdos de infancia" loading="lazy">
-                </div>
-                <div class="photo-item">
-                    <img src="./assets/img/ph-5.jpg" alt="Foto de Sari - Amigos y familia" loading="lazy">
-                </div>
-                <div class="photo-item">
-                    <img src="./assets/img/ph-6.jpg" alt="Foto de Sari - Celebrando la vida" loading="lazy">
-                </div>
-                <div class="photo-item">
-                    <img src="./assets/img/ph-7.jpg" alt="Foto de Sari - Momentos únicos" loading="lazy">
-                </div>
-                <div class="photo-item">
-                    <img src="./assets/img/ph-8.jpg" alt="Foto de Sari - Recuerdos especiales" loading="lazy">
-                </div>
-                <div class="photo-item">
-                    <img src="./assets/img/ph-9.jpg" alt="Foto de Sari - Celebración con seres queridos" loading="lazy">
-                </div>
-                <div class="photo-item">
-                    <img src="./assets/img/ph-10.jpg" alt="Foto de Sari - Aventuras y sueños" loading="lazy">
-                </div>
+            <div class="gallery">
+              <a class="photo" href="assets/img/ph-1.jpg">
+                <picture>
+                  <source srcset="assets/img/ph-1.jpg 1000w" type="image/jpeg">
+                  <img src="assets/img/ph-1.jpg" alt="Sari" loading="lazy" decoding="async" fetchpriority="low" width="666" height="1000">
+                </picture>
+              </a>
+              <a class="photo" href="assets/img/ph-2.jpg">
+                <picture>
+                  <source srcset="assets/img/ph-2.jpg 1000w" type="image/jpeg">
+                  <img src="assets/img/ph-2.jpg" alt="Sari" loading="lazy" decoding="async" fetchpriority="low" width="666" height="1000">
+                </picture>
+              </a>
+              <a class="photo" href="assets/img/ph-3.jpg">
+                <picture>
+                  <source srcset="assets/img/ph-3.jpg 1000w" type="image/jpeg">
+                  <img src="assets/img/ph-3.jpg" alt="Sari" loading="lazy" decoding="async" fetchpriority="low" width="666" height="1000">
+                </picture>
+              </a>
+              <a class="photo" href="assets/img/ph-4.jpg">
+                <picture>
+                  <source srcset="assets/img/ph-4.jpg 1000w" type="image/jpeg">
+                  <img src="assets/img/ph-4.jpg" alt="Sari" loading="lazy" decoding="async" fetchpriority="low" width="666" height="1000">
+                </picture>
+              </a>
+              <a class="photo" href="assets/img/ph-5.jpg">
+                <picture>
+                  <source srcset="assets/img/ph-5.jpg 1000w" type="image/jpeg">
+                  <img src="assets/img/ph-5.jpg" alt="Sari" loading="lazy" decoding="async" fetchpriority="low" width="666" height="1000">
+                </picture>
+              </a>
+              <a class="photo" href="assets/img/ph-6.jpg">
+                <picture>
+                  <source srcset="assets/img/ph-6.jpg 1000w" type="image/jpeg">
+                  <img src="assets/img/ph-6.jpg" alt="Sari" loading="lazy" decoding="async" fetchpriority="low" width="666" height="1000">
+                </picture>
+              </a>
+              <a class="photo" href="assets/img/ph-7.jpg">
+                <picture>
+                  <source srcset="assets/img/ph-7.jpg 1000w" type="image/jpeg">
+                  <img src="assets/img/ph-7.jpg" alt="Sari" loading="lazy" decoding="async" fetchpriority="low" width="666" height="1000">
+                </picture>
+              </a>
+              <a class="photo" href="assets/img/ph-8.jpg">
+                <picture>
+                  <source srcset="assets/img/ph-8.jpg 1000w" type="image/jpeg">
+                  <img src="assets/img/ph-8.jpg" alt="Sari" loading="lazy" decoding="async" fetchpriority="low" width="666" height="1000">
+                </picture>
+              </a>
+              <a class="photo" href="assets/img/ph-9.jpg">
+                <picture>
+                  <source srcset="assets/img/ph-9.jpg 1000w" type="image/jpeg">
+                  <img src="assets/img/ph-9.jpg" alt="Sari" loading="lazy" decoding="async" fetchpriority="low" width="666" height="1000">
+                </picture>
+              </a>
+              <a class="photo" href="assets/img/ph-10.jpg">
+                <picture>
+                  <source srcset="assets/img/ph-10.jpg 1000w" type="image/jpeg">
+                  <img src="assets/img/ph-10.jpg" alt="Sari" loading="lazy" decoding="async" fetchpriority="low" width="666" height="1000">
+                </picture>
+              </a>
             </div>
         </div>
     </section>
@@ -204,13 +240,14 @@
     <!-- RSVP Section -->
     <section id="dresscode" class="section">
         <div class="container">
-            <div class="section-sep" data-variant="bow" aria-hidden="true">
-                <span class="line"></span>
-                <svg class="icon"><use href="assets/icons/decos.svg#bow"/></svg>
-                <span class="line"></span>
+            <div class="section-head">
+                <div class="section-sep" data-variant="bow" aria-hidden="true">
+                    <span class="line"></span>
+                    <svg class="icon"><use href="assets/icons/decos.svg#bow"/></svg>
+                    <span class="line"></span>
+                </div>
+                <h2 class="section-title">Dress code</h2>
             </div>
-
-            <h2 class="section-title center">Dress code</h2>
 
             <div class="dc-card" role="group" aria-label="Código de vestimenta">
                 <div class="dc-text">
@@ -240,13 +277,14 @@
 
     <section id="confirmacion" class="section">
       <div class="container">
-        <div class="section-sep" data-variant="spark" aria-hidden="true">
-          <span class="line"></span>
-          <svg class="icon"><use href="assets/icons/decos.svg#spark"></use></svg>
-          <span class="line"></span>
+        <div class="section-head">
+          <div class="section-sep" data-variant="spark" aria-hidden="true">
+            <span class="line"></span>
+            <svg class="icon"><use href="assets/icons/decos.svg#spark"></use></svg>
+            <span class="line"></span>
+          </div>
+          <h2 class="section-title">Confirmación de asistencia</h2>
         </div>
-
-        <h2 class="section-title center">Confirmación de asistencia</h2>
 
         <form id="rsvpForm" class="form-card" novalidate data-wa-number="3496504811">
           <!-- honeypot anti-bot -->
@@ -287,14 +325,16 @@
     </section>
 
     <!-- Payment Section -->
-    <section id="abono" class="payment">
+    <section id="abono" class="payment section">
         <div class="container">
-            <div class="section-sep" data-variant="star" aria-hidden="true">
-                <span class="line"></span>
-                <svg class="icon"><use href="assets/icons/decos.svg#star"/></svg>
-                <span class="line"></span>
+            <div class="section-head">
+                <div class="section-sep" data-variant="star" aria-hidden="true">
+                    <span class="line"></span>
+                    <svg class="icon"><use href="assets/icons/decos.svg#star"/></svg>
+                    <span class="line"></span>
+                </div>
+                <h2 class="section-title">Valor de la tarjeta</h2>
             </div>
-            <h2 class="section-title">Valor de la tarjeta</h2>
             
             <div class="payment-table">
                 <table>
