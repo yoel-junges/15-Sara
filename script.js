@@ -77,6 +77,14 @@ function setupSmoothScroll() {
             const targetElement = document.querySelector(targetId);
             
             if (targetElement) {
+                // Si es #top, ir exactamente al inicio (0)
+                if (targetId === '#top') {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                } else {
+                    // Para otras secciones, restar altura del header
                 const headerHeight = document.querySelector('.site-header').offsetHeight;
                 const targetPosition = targetElement.offsetTop - headerHeight - 20;
                 
@@ -84,6 +92,7 @@ function setupSmoothScroll() {
                     top: targetPosition,
                     behavior: 'smooth'
                 });
+                }
             }
         });
     });
@@ -195,27 +204,84 @@ function scrollToSection(sectionId) {
   });
 })();
 
-// ===== Play del header conectado al player interno =====
+// ===== Player único: controla #bgAudio con el botón #topPlayBtn =====
 (function(){
-  const topBtn = document.getElementById('topPlayBtn');
-  const floatBtn = document.getElementById('musicToggle'); // botón flotante ya existente
-  if(!topBtn || !floatBtn) return;
+  const btn  = document.getElementById('topPlayBtn');
+  const audio = document.getElementById('bgAudio');
+  if(!btn || !audio) return;
 
-  // Al tocar el botón del header, disparamos el toggle del player existente
-  topBtn.addEventListener('click', ()=>{
-    floatBtn.click();
+  // Fuente desde data-src (para cambiar pista fácil)
+  const ds = audio.getAttribute('data-src');
+  if(ds) audio.src = ds;
+
+  // Cache-bust opcional con version.txt si existe
+  if (window.__ASSET_VERSION__ && audio.src) {
+    audio.src = audio.src.split('?')[0] + '?v=' + encodeURIComponent(window.__ASSET_VERSION__);
+  }
+
+  let ctx, src, gain, playing = false, fading = false;
+
+  function ensureGraph(){
+    if(ctx) return;
+    try{
+      ctx = new (window.AudioContext || window.webkitAudioContext)();
+      src = ctx.createMediaElementSource(audio);
+      gain = ctx.createGain();
+      gain.gain.value = 0.0; // arrancamos mute para fade-in
+      src.connect(gain).connect(ctx.destination);
+      audio.volume = 1.0; // fallback si no hay WebAudio
+    }catch{
+      ctx = null; gain = null;
+    }
+  }
+
+  function fadeTo(target=0.85, ms=420){
+    if(!gain){ audio.volume = target; return Promise.resolve(); }
+    if(fading) return Promise.resolve();
+    return new Promise(res=>{
+      fading = true;
+      const start = gain.gain.value;
+      const diff = target - start;
+      const t0 = performance.now();
+      function step(t){
+        const p = Math.min(1,(t - t0)/ms);
+        gain.gain.value = start + diff*p;
+        if(p < 1) requestAnimationFrame(step);
+        else { fading = false; res(); }
+      }
+      requestAnimationFrame(step);
+    });
+  }
+
+  async function play(){
+    ensureGraph();
+    try{ await ctx?.resume?.(); }catch{}
+    try{
+      await audio.play();         // reproduce EN LA PÁGINA, sin salir
+      await fadeTo(0.85, 450);    // volumen final suave
+      playing = true;
+      btn.setAttribute('aria-pressed','true');
+    }catch(e){
+      // Si el navegador requiere otro gesto, el siguiente toque al botón lo logrará.
+      console.debug('Reproducción bloqueada hasta un gesto del usuario:', e?.message || e);
+    }
+  }
+
+  function stop(){
+    fadeTo(0.0, 350).then(()=>{
+      audio.pause();
+      playing = false;
+      btn.setAttribute('aria-pressed','false');
+    });
+  }
+
+  // Toggle del botón del header
+  btn.addEventListener('click', ()=> { if(!playing) play(); else stop(); });
+
+  // Pausar si la pestaña se oculta (buena UX)
+  document.addEventListener('visibilitychange', ()=> {
+    if(document.hidden && playing) stop();
   });
-
-  // Mantener estados sincronizados observando aria-pressed del botón flotante
-  const sync = ()=> {
-    const pressed = floatBtn.getAttribute('aria-pressed') === 'true';
-    topBtn.setAttribute('aria-pressed', pressed ? 'true' : 'false');
-  };
-  // 1) al cargar
-  sync();
-  // 2) cuando cambie el flotante (MutationObserver)
-  const mo = new MutationObserver(sync);
-  mo.observe(floatBtn, { attributes: true, attributeFilter: ['aria-pressed'] });
 })();
 
 // ===== Versión de build: detectar cambios y forzar recarga suave de assets =====
