@@ -23,10 +23,36 @@
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
     
-    <!-- Styles -->
-    <link rel="stylesheet" href="styles.css">
+    <!-- Bootstrap de assets con bust de versión: mobile-proof -->
     <script>
-      window.__ASSET_VERSION__ = null;
+      (function(){
+        var VKEY = 'siteAssetVersion';
+        function injectCSS(href){
+          var l = document.createElement('link');
+          l.rel = 'stylesheet'; l.href = href; document.head.appendChild(l);
+        }
+        function injectJS(src){
+          var s = document.createElement('script');
+          s.src = src; s.defer = true; document.head.appendChild(s);
+        }
+        function load(v){
+          var q = '?v=' + encodeURIComponent(v);
+          injectCSS('styles.css' + q);
+          injectJS('script.js' + q);
+        }
+        fetch('version.txt?ts=' + Date.now(), {cache:'no-store'})
+          .then(function(r){return r.text();})
+          .then(function(t){
+            var v = (t||'').trim() || String(Date.now());
+            localStorage.setItem(VKEY, v);
+            load(v);
+          })
+          .catch(function(){
+            var v = String(Date.now());
+            localStorage.setItem(VKEY, v);
+            load(v);
+          });
+      })();
     </script>
     
     <!-- Preload hero image for better performance -->
@@ -137,27 +163,41 @@
     </section>
 
     <!-- Location Section -->
-    <section id="lugar" class="location section">
-        <div class="container">
-            <div class="section-head">
-                <div class="section-sep" data-variant="star" aria-hidden="true">
-                    <span class="line"></span>
-                    <svg class="icon"><use href="assets/icons/decos.svg#star"/></svg>
-                    <span class="line"></span>
-                </div>
-                <h2 class="section-title">Lugar</h2>
-            </div>
-            <div class="location-content">
-                <div class="location-info">
-                    <h3 class="location-name">Quinta "Magnolia"</h3>
-                    <p class="location-address">Ruta 70 — Esperanza, Santa Fe</p>
-                    <button class="btn btn-secondary" onclick="openGoogleMaps()">
-                        Abrir en Google Maps
-                    </button>
-                </div>
-                
-            </div>
+    <section id="lugar" class="section">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-sep" data-variant="star" aria-hidden="true">
+            <span class="line"></span>
+            <svg class="icon"><use href="assets/icons/decos.svg#star"/></svg>
+            <span class="line"></span>
+          </div>
+          <h2 class="section-title">Lugar</h2>
+          <p class="section-lead">Quinta "Magnolia" — Ruta 70, Esperanza (Santa Fe)</p>
         </div>
+
+        <!-- Wrapper de mapa/acciones con coordenadas -->
+        <div id="venue"
+             class="venue-card"
+             data-lat="-31.43092357518081"
+             data-lng="-60.9757019286323"
+             data-label="Quinta Magnolia (Ruta 70, Esperanza)">
+          <!-- Mini mapa responsive (embed sin API key) -->
+          <div class="map-embed">
+            <iframe id="mapFrame"
+              src=""
+              loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+              aria-label="Mapa del lugar"></iframe>
+          </div>
+
+          <div class="venue-actions">
+            <button id="btnComoLlegar" class="btn-primary">Cómo llegar</button>
+            <button id="btnCopiarDir" class="btn-outline">Copiar dirección</button>
+          </div>
+
+          <!-- Dirección visible (editable) -->
+          <p class="venue-address">Ruta Provincial 70 — Esperanza, Santa Fe</p>
+        </div>
+      </div>
     </section>
 
     <!-- Photos Section -->
@@ -414,7 +454,6 @@
       <source src="assets/audio/a-sky-full-of-stars-cover.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Scripts -->
-    <script src="script.js"></script>
+    <!-- Scripts inyectados dinámicamente por bootstrap -->
 </body>
 </html>

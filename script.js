@@ -1,3 +1,10 @@
+// Anti-SW: desregistrar service workers heredados (si los hubiera)
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.getRegistrations?.().then(function(regs){
+    regs.forEach(function(reg){ reg.unregister(); });
+  });
+}
+
 // ===== INICIALIZACIÓN =====
 document.addEventListener('DOMContentLoaded', function() {
     setupHeroBackground();
@@ -422,12 +429,44 @@ function scrollToSection(sectionId) {
   });
 })();
 
-// ===== GOOGLE MAPS =====
-function openGoogleMaps() {
-    const searchQuery = 'Quinta+Magnolia+Ruta+70+Esperanza+Santa+Fe';
-    const mapsUrl = `https://maps.google.com/?q=${searchQuery}`;
-    window.open(mapsUrl, '_blank');
-}
+// ===== Ubicación exacta: deep-links y mapa embed =====
+(function(){
+  const box = document.getElementById('venue');
+  if(!box) return;
+  const lat = parseFloat(box.getAttribute('data-lat'));
+  const lng = parseFloat(box.getAttribute('data-lng'));
+  const label = box.getAttribute('data-label') || 'Destino';
+  if(Number.isNaN(lat) || Number.isNaN(lng)) return;
+
+  const mapFrame = document.getElementById('mapFrame');
+  // Embed público sin API: q=lat,lng
+  const z = 15;
+  mapFrame.src = `https://maps.google.com/maps?q=${lat},${lng}&z=${z}&output=embed`;
+
+  // Deep-links por plataforma
+  const isIOS = /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent) && 'ontouchend' in document;
+  const gmaps = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&destination_place_id=&travelmode=driving`;
+  const amap  = `http://maps.apple.com/?daddr=${lat},${lng}&q=${encodeURIComponent(label)}&dirflg=d`;
+  const waze  = `https://waze.com/ul?ll=${lat},${lng}&navigate=yes`;
+
+  const btnGo = document.getElementById('btnComoLlegar');
+  btnGo?.addEventListener('click', ()=>{
+    // En iOS priorizamos Apple Maps; si preferís Google, cambiá el orden
+    const url = isIOS ? amap : gmaps;
+    // Si tenés Waze y querés priorizarlo, cambiá aquí por waze
+    window.open(url, '_blank', 'noopener,noreferrer');
+  });
+
+  const btnCopy = document.getElementById('btnCopiarDir');
+  btnCopy?.addEventListener('click', async ()=>{
+    const addr = (document.querySelector('.venue-address')?.textContent || label).trim();
+    try{
+      await navigator.clipboard.writeText(addr);
+      btnCopy.textContent = '¡Copiado!';
+      setTimeout(()=> btnCopy.textContent = 'Copiar dirección', 1400);
+    }catch{ /* silent */ }
+  });
+})();
 
 // ===== UTILIDADES ADICIONALES =====
 
