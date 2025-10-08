@@ -528,20 +528,43 @@ function scrollToSection(sectionId) {
 
 // ===== UTILIDADES ADICIONALES =====
 
-// Función para copiar alias al portapapeles (opcional)
-function copyAlias() {
-    const alias = 'roxanajossen.mp';
-    
-    if (navigator.clipboard) {
-        navigator.clipboard.writeText(alias).then(() => {
-            showToast('Alias copiado al portapapeles', 'success');
-        }).catch(() => {
-            fallbackCopyTextToClipboard(alias);
-        });
-    } else {
-        fallbackCopyTextToClipboard(alias);
+// ===== COPY ALIAS BUTTON =====
+(function(){
+  const btn = document.getElementById('copyAliasBtn');
+  if(!btn) return;
+  
+  const alias = 'roxanajossen.mp';
+  
+  btn.addEventListener('click', async ()=>{
+    try{
+      await navigator.clipboard.writeText(alias);
+      // Feedback visual
+      const originalText = btn.textContent;
+      btn.textContent = '¡Copiado!';
+      btn.style.background = 'rgba(76, 175, 80, 0.1)';
+      btn.style.borderColor = '#4caf50';
+      
+      setTimeout(()=>{
+        btn.textContent = originalText;
+        btn.style.background = '';
+        btn.style.borderColor = '';
+      }, 1500);
+    }catch(err){
+      // Fallback para navegadores que no soportan clipboard API
+      const textArea = document.createElement('textarea');
+      textArea.value = alias;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      
+      // Feedback visual
+      const originalText = btn.textContent;
+      btn.textContent = '¡Copiado!';
+      setTimeout(()=> btn.textContent = originalText, 1500);
     }
-}
+  });
+})();
 
 function fallbackCopyTextToClipboard(text) {
     const textArea = document.createElement('textarea');
