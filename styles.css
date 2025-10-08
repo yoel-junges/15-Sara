@@ -1146,13 +1146,15 @@ html{
 /* ===== BLOQUES DE COLOR POR SECCIÓN ===== */
 .section-block{
   position: relative;
-  width: min(980px, 94vw);
-  margin: 0 auto;
-  border-radius: var(--radius-xxl);
-  box-shadow: var(--shadow-soft);
-  overflow: clip;
-  padding: clamp(14px, 3vw, 22px) clamp(12px, 3.2vw, 26px);
+  width: 100vw;
+  margin: 0;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: visible;
+  padding: clamp(20px, 4vw, 32px) clamp(16px, 4vw, 32px);
   color: #1f2a3a; /* contraste de texto */
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
 }
 
 /* Intensidad: Medium (predeterminada al aplicar estas clases) */
@@ -1184,6 +1186,13 @@ html{
   background: linear-gradient(180deg, rgba(255,255,255,.5), rgba(255,255,255,0));
 }
 
+/* Contenido centrado dentro del bloque de ancho completo */
+.section-block .container,
+.section-block > * {
+  max-width: min(980px, 94vw);
+  margin: 0 auto;
+}
+
 /* Alineación de cabecera dentro del bloque */
 .section-block .section-head{
   margin-bottom: clamp(12px, 2.4vw, 18px);
@@ -1208,8 +1217,8 @@ html{
 /* Ajustes responsive */
 @media (max-width: 560px){
   .section-block{
-    border-radius: 22px;
-    padding: 14px 14px 16px;
+    border-radius: 0;
+    padding: 20px 16px 24px;
   }
 }
 
@@ -1253,7 +1262,38 @@ html{
 
 /* Padding y radios se conservan, pero reforzamos en mobile */
 @media (max-width: 560px){
-  .section-block.vivid{ border-radius: 22px; padding: 16px 14px 18px; }
+  .section-block.vivid{ border-radius: 0; padding: 20px 16px 24px; }
+}
+
+/* ===== DEGRADADOS SUAVES ENTRE SECCIONES ===== */
+/* Degradado de countdown (celeste) a lugar (lila) */
+#countdown .section-block.vivid.bg-celeste {
+  background: linear-gradient(180deg, #7FD2EF 0%, #7FD2EF 70%, #B495E6 100%);
+}
+
+/* Degradado de lugar (lila) a fotos (gradiente azul) */
+#lugar .section-block.vivid.bg-lila {
+  background: linear-gradient(180deg, #B495E6 0%, #B495E6 70%, #8FA2FF 100%);
+}
+
+/* Degradado de fotos (gradiente azul) a dresscode (azul) */
+#fotos .section-block.vivid.gradient-azul {
+  background: linear-gradient(180deg, #8FA2FF 0%, #B7C4FF 70%, #8FA2FF 100%);
+}
+
+/* Degradado de dresscode (azul) a confirmación (celeste) */
+#dresscode .section-block.vivid.bg-azul {
+  background: linear-gradient(180deg, #8FA2FF 0%, #8FA2FF 70%, #7FD2EF 100%);
+}
+
+/* Degradado de confirmación (celeste) a abono (plateado) */
+#confirmacion .section-block.vivid.bg-celeste {
+  background: linear-gradient(180deg, #7FD2EF 0%, #7FD2EF 70%, #BFC7CF 100%);
+}
+
+/* Abono mantiene su color hasta el final */
+#abono .section-block.vivid.bg-plateado {
+  background: linear-gradient(180deg, #BFC7CF 0%, #BFC7CF 100%);
 }
 
 /* ===== COPY ALIAS BUTTON ===== */
