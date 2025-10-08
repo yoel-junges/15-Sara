@@ -183,6 +183,7 @@ section.wash-plateado{
 /* variantes comunes de contenido dentro de cards */
 .frost-card .body{ padding: clamp(14px, 3vw, 22px); }
 
+
 /* map embed como card (no franja a todo ancho) */
 #lugar .map-embed{ aspect-ratio: 16/10; }
 #lugar .map-embed iframe{ display:block; width:100%; height:100%; border:0; background:transparent; }
@@ -286,7 +287,7 @@ section.wash-plateado{
 
 #dresscode .dc-card{ margin-top: var(--space-3); }
 
-#confirmacion .form-card{ margin-top: var(--space-3); }
+#confirmacion .rsvp-wrap{ margin-top: var(--space-3); }
 #confirmacion .actions{ justify-content:center; }
 
 #abono .price-table{ margin-top: var(--space-3); }
@@ -1221,15 +1222,14 @@ html{
 /* ===== BLOQUES DE COLOR POR SECCIÓN ===== */
 .section-block{
   position: relative;
-  width: 100vw;
-  margin: 0;
+  width: auto;
+  max-width: min(980px, 94vw);
+  margin: 0 auto;
   border-radius: 0;
   box-shadow: none;
   overflow: visible;
   padding: clamp(20px, 4vw, 32px) clamp(16px, 4vw, 32px);
   color: #1f2a3a; /* contraste de texto */
-  margin-left: calc(-50vw + 50%);
-  margin-right: calc(-50vw + 50%);
 }
 
 /* Intensidad: Medium (predeterminada al aplicar estas clases) */
@@ -1582,4 +1582,155 @@ section.wash-azul,
 section.wash-plateado{
   background-color: transparent; /* no tapa el degradé */
   /* NO usar 'background' aquí */
+}
+
+/* ===== CORRECCIÓN OVERFLOW-X ===== */
+
+/* 1) Nunca uses 100vw para contenedores internos: causa overflow en mobile */
+.section-block{
+  /* si existe en tu CSS con width:100vw, reemplazalo por: */
+  width: auto;
+  max-width: min(980px, 94vw);
+  margin: 0 auto;
+}
+
+/* 2) Galería y mapa centrados, sin exceder el viewport */
+.gallery, 
+#lugar .venue-card, 
+#lugar .map-embed{
+  max-width: min(980px, 94vw);
+  width: 100%;
+  margin-inline: auto;
+}
+
+/* 3) Imágenes y iframes nunca más anchos que su contenedor */
+img, video, iframe{
+  display:block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* 4) El contenedor principal no debe sumar ancho extra por padding */
+.container{
+  box-sizing: border-box;
+  padding-inline: 12px;      /* ya lo usás, pero aseguramos box-sizing */
+}
+
+/* 5) Seguridad: prevenir desplazamiento horizontal si algo se escapa */
+html, body{ overflow-x: hidden; }
+
+/* 6) Si alguna sección quedó con fondo pero además tenía padding externo,
+      evita sumar 100% + padding que produce "columna blanca" */
+.photos.section, 
+#lugar.section, 
+#confirmacion.section,
+#countdown.section,
+#dresscode.section,
+#abono.section{
+  width: 100%;
+}
+
+/* ===== Confirmación sin "caja blanca" de fondo ===== */
+#confirmacion .rsvp-wrap{
+  width: min(820px, 94vw);
+  margin: 8px auto 0;
+  background: transparent;     /* NO card blanca */
+}
+
+/* El formulario en sí es transparente */
+#confirmacion .rsvp-form{
+  background: transparent;
+  box-shadow: none;
+  border: 0;
+  padding: 0;
+  color: #10243d;
+}
+
+/* Bloques del formulario */
+#confirmacion .field{
+  margin-bottom: 14px;
+}
+
+/* Etiquetas sobre el fondo celeste */
+#confirmacion label{
+  display: block;
+  font-weight: 700;
+  letter-spacing: .2px;
+  margin-bottom: 6px;
+  color: #0e1c2f;              /* bien legible sobre el wash */
+}
+
+/* Inputs y textarea: ÚNICOS elementos con blanco */
+#confirmacion input[type="text"],
+#confirmacion input[type="tel"],
+#confirmacion input[type="email"],
+#confirmacion textarea{
+  display: block;
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid rgba(16, 36, 61, .08);
+  border-radius: 14px;
+  padding: 12px 14px;
+  box-shadow: 0 8px 24px rgba(20,40,80,.08);
+  font-size: 16px;
+  line-height: 1.4;
+  outline: none;
+}
+
+#confirmacion textarea{
+  min-height: 110px;          /* evitamos "rectángulo gigante" */
+  resize: vertical;
+}
+
+/* Placeholder más suave */
+#confirmacion ::placeholder{
+  color: rgba(16,36,61,.45);
+}
+
+/* Radios alineados y legibles */
+#confirmacion .radio-group{
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 6px 2px 2px;
+}
+
+#confirmacion input[type="radio"]{
+  transform: translateY(1px);
+  accent-color: var(--c-azul); /* usa tu azul claro */
+}
+
+/* Mensajes de error (si los usás) */
+#confirmacion .error{
+  color: #c0392b;
+  font-size: .9rem;
+  margin-top: 4px;
+}
+
+/* Botón centrado, blanco "píldora" */
+#confirmacion #sendBtn{
+  display: block;
+  margin: 14px auto 0;
+  background: #ffffff;
+  color: #10243d;
+  border: 1px solid rgba(0,0,0,.06);
+  border-radius: 14px;
+  padding: 12px 18px;
+  font-weight: 700;
+  box-shadow: 0 10px 30px rgba(20,40,80,.12);
+}
+
+/* En hover no cambies el color de fondo del wash */
+#confirmacion #sendBtn:hover{
+  filter: brightness(.98);
+}
+
+/* Pequeño ajuste para que el form no "atraviese" el wash con sombras raras */
+#confirmacion .rsvp-wrap,
+#confirmacion .rsvp-form{ isolation: isolate; }
+
+/* Mobile tweaks */
+@media (max-width: 520px){
+  #confirmacion .rsvp-wrap{ width: min(680px, 94vw); }
+  #confirmacion .radio-group{ flex-wrap: wrap; gap: 10px 16px; }
 }

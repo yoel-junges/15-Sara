@@ -337,38 +337,38 @@
                 <h2 class="section-title">Confirmación de asistencia</h2>
             </div>
 
-        <form id="rsvpForm" class="form-card frost-card" novalidate data-wa-number="5493496512511">
-          <!-- honeypot anti-bot -->
-          <input type="text" name="empresa" id="empresa" autocomplete="off" tabindex="-1" aria-hidden="true" hidden>
+            <div class="rsvp-wrap">
+              <form id="rsvpForm" class="rsvp-form" novalidate data-wa-number="5493496512511">
+                <!-- honeypot anti-bot -->
+                <input type="text" name="empresa" id="empresa" autocomplete="off" tabindex="-1" aria-hidden="true" hidden>
 
-          <div class="field">
-            <label for="nombre">Nombre completo</label>
-            <input type="text" id="nombre" name="nombre" required autocomplete="name">
-            <small class="error" id="err-nombre"></small>
+                <div class="field">
+                  <label for="nombre">Nombre completo</label>
+                  <input type="text" id="nombre" name="nombre" required autocomplete="name">
+                  <small class="error" id="err-nombre"></small>
                 </div>
-                
-          <div class="field">
-            <span>Asistencia</span>
-            <div class="radios" role="group" aria-label="Asistencia">
-              <label><input type="radio" name="asistencia" value="Sí confirmo" required> Sí confirmo</label>
-              <label><input type="radio" name="asistencia" value="No confirmo" required> No confirmo</label>
-                    </div>
-            <small class="error" id="err-asistencia"></small>
+                    
+                <div class="field">
+                  <span>Asistencia</span>
+                  <div class="radios" role="group" aria-label="Asistencia">
+                    <label><input type="radio" name="asistencia" value="Sí confirmo" required> Sí confirmo</label>
+                    <label><input type="radio" name="asistencia" value="No confirmo" required> No confirmo</label>
+                  </div>
+                  <small class="error" id="err-asistencia"></small>
                 </div>
-                
-          <div class="field">
-            <label for="restricciones">¿Tenés alguna restricción alimenticia?</label>
-            <textarea id="restricciones" name="restricciones" rows="3"></textarea>
-          </div>
+                    
+                <div class="field">
+                  <label for="restricciones">¿Tenés alguna restricción alimenticia?</label>
+                  <textarea id="restricciones" name="restricciones" rows="3"></textarea>
+                </div>
 
-                
-          <div class="actions actions-center">
-            <button type="submit" id="sendBtn" class="btn-primary btn-wide">Enviar confirmación</button>
-          </div>
-            </form>
+                <div class="actions actions-center">
+                  <button type="submit" id="sendBtn" class="btn-primary btn-wide">Enviar confirmación</button>
+                </div>
+              </form>
             </div>
             
-        <div class="toast" id="toast" role="status" aria-live="polite">Confirmación guardada.</div>
+            <div class="toast" id="toast" role="status" aria-live="polite">Confirmación guardada.</div>
         </div>
     </section>
 
