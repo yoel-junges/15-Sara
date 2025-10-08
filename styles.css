@@ -194,8 +194,13 @@ h2 {
 #lugar .section-head{ margin-bottom: var(--space-3); }
 
 #fotos .section-head{ margin-bottom: var(--space-3); }
-.gallery{ display:grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 12px; }
-@media (max-width: 640px){ .gallery{ grid-template-columns: repeat(2,1fr); gap:10px; } }
+.gallery{ 
+  display: grid; 
+  grid-template-columns: 1fr; 
+  gap: 14px; 
+  max-width: 780px; 
+  margin: 0 auto; 
+}
 
 #dresscode .dc-card{ margin-top: var(--space-3); }
 
@@ -795,9 +800,9 @@ h2 {
 
 .gallery{
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: 1fr;
   gap: 14px;
-  max-width: 1000px;
+  max-width: 780px;
   margin: 0 auto;
 }
 .photo{
@@ -819,9 +824,7 @@ h2 {
 }
 .photo:hover{ transform: translateY(-2px); box-shadow: 0 12px 32px rgba(20,40,80,.14); }
 .photo:hover img{ transform: scale(1.02); }
-@media (max-width: 640px){
-  .gallery{ grid-template-columns: repeat(2, 1fr); gap: 10px; }
-}
+/* Galería siempre en 1 columna - regla eliminada */
 
 /* ===== RSVP SECTION ===== */
 .rsvp {
