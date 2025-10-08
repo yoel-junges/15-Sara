@@ -61,6 +61,21 @@
   --space-5: 1.75rem;
   --space-6: 2.25rem;
   --container: min(1000px, 92vw);
+
+  /* Paleta */
+  --celeste:      #A7DFF2;
+  --azul-claro:   #B7C4FF;
+  --lila-pastel:  #CBB8EA;
+  --plateado:     #CFD6DD;
+
+  /* Derivados muy suaves (para fondos pastel) */
+  --celeste-10:    #E9F6FC;
+  --azul-10:       #EEF0FF;
+  --lila-10:       #F1EAFE;
+  --plateado-10:   #EEF1F4;
+
+  --radius-xxl: 26px;
+  --shadow-soft: 0 18px 50px rgba(20,40,80,.12);
 }
 
 /* ===== RESET Y BASE ===== */
@@ -1117,6 +1132,61 @@ textarea{
 
 html{ 
   scroll-behavior: smooth; /* fallback básico */
+}
+
+/* ===== BLOQUES DE COLOR POR SECCIÓN ===== */
+.section-block{
+  position: relative;
+  width: min(980px, 94vw);
+  margin: 0 auto;
+  border-radius: var(--radius-xxl);
+  box-shadow: var(--shadow-soft);
+  overflow: clip;
+  /* relleno generoso */
+  padding: clamp(14px, 3vw, 22px) clamp(12px, 3.2vw, 26px);
+}
+
+/* Fondos pastel por variante */
+.bg-celeste   { background: var(--celeste-10); }
+.bg-azul      { background: var(--azul-10); }
+.bg-lila      { background: var(--lila-10); }
+.bg-plateado  { background: var(--plateado-10); }
+
+/* "Frost" sutil: capa blanca translúcida detrás del contenido para legibilidad */
+.section-block::before{
+  content:"";
+  position:absolute; inset: 0;
+  background: radial-gradient(1200px 400px at 10% -10%, rgba(255,255,255,.55), rgba(255,255,255,.0) 60%),
+              radial-gradient(800px 360px at 90% 110%, rgba(255,255,255,.45), rgba(255,255,255,.0) 60%);
+  pointer-events:none;
+}
+
+/* Alineación de cabecera dentro del bloque */
+.section-block .section-head{
+  margin-bottom: clamp(12px, 2.4vw, 18px);
+}
+
+/* Separadores integrados: que no "peguen" a los bordes del bloque */
+.section-block .section-sep{
+  width: 100%;
+  max-width: 760px;
+}
+
+/* Opcional: una fina línea superior "accent" dentro del bloque */
+.section-block .accent-line{
+  height: 4px; width: 100%;
+  background: linear-gradient(90deg, var(--celeste), var(--lila-pastel));
+  border-radius: 999px;
+  margin: -2px 0 8px;
+  opacity: .65;
+}
+
+/* Ajustes responsive */
+@media (max-width: 560px){
+  .section-block{
+    border-radius: 22px;
+    padding: 14px 14px 16px;
+  }
 }
 
 /* ===== COPY ALIAS BUTTON ===== */

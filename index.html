@@ -125,8 +125,10 @@
     <!-- Countdown Section -->
     <section id="countdown" class="section countdown" data-event-datetime="2025-11-08T20:30:00-03:00" aria-live="polite">
         <div class="container">
-
-            <!-- Tarjeta de fecha -->
+            <div class="section-block bg-celeste">
+                <div class="accent-line"></div>
+                
+                <!-- Tarjeta de fecha -->
             <div class="date-card" role="group" aria-label="Fecha del evento">
                 <svg class="cal-ico" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M7 2v3M17 2v3M3 9h18M4 6h16a1 1 0 0 1 1 1v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
@@ -168,7 +170,7 @@
                     <div class="label">seg</div>
                 </div>
             </div>
-
+            </div>
         </div>
     </section>
 
@@ -185,37 +187,41 @@
     <!-- Location Section -->
     <section id="lugar" class="section">
       <div class="container">
-        <div class="section-head">
-          <div class="section-sep" data-variant="star" aria-hidden="true">
-            <span class="line"></span>
-            <svg class="icon"><use href="assets/icons/decos.svg#star"/></svg>
-            <span class="line"></span>
-          </div>
-          <h2 class="section-title title-emoji" aria-label="Lugar">📍<span class="visually-hidden">Lugar</span></h2>
-          <p class="section-lead">Quinta "Magnolia" — Ruta 70, Esperanza (Santa Fe)</p>
-        </div>
-
-        <!-- Wrapper de mapa/acciones con coordenadas -->
-        <div id="venue"
-             class="venue-card"
-             data-lat="-31.43092357518081"
-             data-lng="-60.9757019286323"
-             data-label="Quinta Magnolia (Ruta 70, Esperanza)">
-          <!-- Mini mapa responsive (embed sin API key) -->
-          <div class="map-embed">
-            <iframe id="mapFrame"
-              src=""
-              loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-              aria-label="Mapa del lugar"></iframe>
+        <div class="section-block bg-lila">
+          <div class="accent-line"></div>
+          
+          <div class="section-head">
+            <div class="section-sep" data-variant="star" aria-hidden="true">
+              <span class="line"></span>
+              <svg class="icon"><use href="assets/icons/decos.svg#star"/></svg>
+              <span class="line"></span>
+            </div>
+            <h2 class="section-title title-emoji" aria-label="Lugar">📍<span class="visually-hidden">Lugar</span></h2>
+            <p class="section-lead">Quinta "Magnolia" — Ruta 70, Esperanza (Santa Fe)</p>
           </div>
 
-          <div class="venue-actions">
-            <button id="btnComoLlegar" class="btn-primary">Cómo llegar</button>
-            <!-- Eliminado: botón Copiar dirección -->
-          </div>
+          <!-- Wrapper de mapa/acciones con coordenadas -->
+          <div id="venue"
+               class="venue-card"
+               data-lat="-31.43092357518081"
+               data-lng="-60.9757019286323"
+               data-label="Quinta Magnolia (Ruta 70, Esperanza)">
+            <!-- Mini mapa responsive (embed sin API key) -->
+            <div class="map-embed">
+              <iframe id="mapFrame"
+                src=""
+                loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                aria-label="Mapa del lugar"></iframe>
+            </div>
 
-          <!-- Dirección visible (editable) -->
-          <p class="venue-address">Ruta Provincial 70 — Esperanza, Santa Fe</p>
+            <div class="venue-actions">
+              <button id="btnComoLlegar" class="btn-primary">Cómo llegar</button>
+              <!-- Eliminado: botón Copiar dirección -->
+            </div>
+
+            <!-- Dirección visible (editable) -->
+            <p class="venue-address">Ruta Provincial 70 — Esperanza, Santa Fe</p>
+          </div>
         </div>
       </div>
     </section>
@@ -223,16 +229,19 @@
     <!-- Photos Section -->
     <section id="fotos" class="photos section">
         <div class="container">
-            <div class="section-head">
-                <div class="section-sep" data-variant="spark" aria-hidden="true">
-                    <span class="line"></span>
-                    <svg class="icon"><use href="assets/icons/decos.svg#spark"/></svg>
-                    <span class="line"></span>
+            <div class="section-block bg-plateado">
+                <div class="accent-line"></div>
+                
+                <div class="section-head">
+                    <div class="section-sep" data-variant="spark" aria-hidden="true">
+                        <span class="line"></span>
+                        <svg class="icon"><use href="assets/icons/decos.svg#spark"/></svg>
+                        <span class="line"></span>
+                    </div>
+                    <h2 class="section-title title-emoji" aria-label="Fotos">📸<span class="visually-hidden">Fotos</span></h2>
                 </div>
-                <h2 class="section-title title-emoji" aria-label="Fotos">📸<span class="visually-hidden">Fotos</span></h2>
-            </div>
 
-            <div class="gallery">
+                <div class="gallery">
               <a class="photo" href="assets/img/ph-1.jpg">
                 <picture>
                   <source srcset="assets/img/ph-1.jpg 1000w" type="image/jpeg">
@@ -293,6 +302,7 @@
                   <img src="assets/img/ph-10.jpg" alt="Sari" loading="lazy" decoding="async" fetchpriority="low" width="666" height="1000">
                 </picture>
               </a>
+                </div>
             </div>
         </div>
     </section>
@@ -300,27 +310,31 @@
     <!-- RSVP Section -->
     <section id="dresscode" class="section">
         <div class="container">
-            <div class="section-head">
-                <div class="section-sep" data-variant="bow" aria-hidden="true">
-                <span class="line"></span>
-                    <svg class="icon"><use href="assets/icons/decos.svg#bow"/></svg>
-                <span class="line"></span>
-                </div>
-                <h2 class="section-title">Dress code</h2>
-                </div>
+            <div class="section-block bg-azul">
+                <div class="accent-line"></div>
+                
+                <div class="section-head">
+                    <div class="section-sep" data-variant="bow" aria-hidden="true">
+                    <span class="line"></span>
+                        <svg class="icon"><use href="assets/icons/decos.svg#bow"/></svg>
+                    <span class="line"></span>
+                    </div>
+                    <h2 class="section-title">Dress code</h2>
+                    </div>
 
-            <div class="dc-card" role="group" aria-label="Código de vestimenta">
-                <div class="dc-text">
-                  <p class="dc-main">
-                    <span class="dc-script">Elegante</span>
-                  </p>
+                <div class="dc-card" role="group" aria-label="Código de vestimenta">
+                    <div class="dc-text">
+                      <p class="dc-main">
+                        <span class="dc-script">Elegante sport</span>
+                      </p>
 
-                  <!-- Moño debajo de "Elegante" -->
-                  <div class="dc-bow" aria-hidden="true">
-                    <span class="bow-emoji">🎀</span>
-                  </div>
+                      <!-- Moño debajo de "Elegante" -->
+                      <div class="dc-bow" aria-hidden="true">
+                        <span class="bow-emoji">🎀</span>
+                      </div>
 
-                  
+                      
+                    </div>
                 </div>
             </div>
         </div>
@@ -328,14 +342,17 @@
 
     <section id="confirmacion" class="section">
         <div class="container">
-        <div class="section-head">
-          <div class="section-sep" data-variant="spark" aria-hidden="true">
-            <span class="line"></span>
-            <svg class="icon"><use href="assets/icons/decos.svg#spark"></use></svg>
-            <span class="line"></span>
-          </div>
-            <h2 class="section-title">Confirmación de asistencia</h2>
-        </div>
+            <div class="section-block bg-celeste">
+                <div class="accent-line"></div>
+                
+                <div class="section-head">
+                  <div class="section-sep" data-variant="spark" aria-hidden="true">
+                    <span class="line"></span>
+                    <svg class="icon"><use href="assets/icons/decos.svg#spark"></use></svg>
+                    <span class="line"></span>
+                  </div>
+                    <h2 class="section-title">Confirmación de asistencia</h2>
+                </div>
 
         <form id="rsvpForm" class="form-card" novalidate data-wa-number="5493496512511">
           <!-- honeypot anti-bot -->
@@ -366,6 +383,7 @@
             <button type="submit" id="sendBtn" class="btn-primary btn-wide">Enviar confirmación</button>
           </div>
             </form>
+            </div>
             
         <div class="toast" id="toast" role="status" aria-live="polite">Confirmación guardada.</div>
         </div>
@@ -374,14 +392,17 @@
     <!-- Payment Section -->
     <section id="abono" class="payment section">
         <div class="container">
-            <div class="section-head">
-                <div class="section-sep" data-variant="star" aria-hidden="true">
-                    <span class="line"></span>
-                    <svg class="icon"><use href="assets/icons/decos.svg#star"/></svg>
-                    <span class="line"></span>
+            <div class="section-block bg-plateado">
+                <div class="accent-line"></div>
+                
+                <div class="section-head">
+                    <div class="section-sep" data-variant="star" aria-hidden="true">
+                        <span class="line"></span>
+                        <svg class="icon"><use href="assets/icons/decos.svg#star"/></svg>
+                        <span class="line"></span>
+                    </div>
+                <h2 class="section-title">Valor de la tarjeta</h2>
                 </div>
-            <h2 class="section-title">Valor de la tarjeta</h2>
-            </div>
             
             <div class="payment-table">
                 <table>
@@ -411,9 +432,9 @@
                     <button id="copyAliasBtn" class="copy-alias-btn" aria-label="Copiar alias de Instagram">Copiar alias</button>
                 </div>
                 <p class="payment-note">
-                    <!-- TODO: Editar fecha límite según necesidades -->
-                    Fecha límite de pago: 15 de octubre de 2025
+                    Fecha límite de pago: 30 de octubre de 2025
                 </p>
+            </div>
             </div>
         </div>
     </section>
