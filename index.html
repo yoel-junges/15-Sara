@@ -123,19 +123,8 @@
     </section>
 
     <!-- Countdown Section -->
-    <section id="countdown" class="section countdown" data-event-datetime="2025-11-08T20:30:00-03:00" aria-live="polite">
-        <div class="section-block vivid bg-celeste">
-            <div class="container">
-                <div class="inner-accent"></div>
-                
-                <!-- Tarjeta de fecha -->
-            <div class="date-card" role="group" aria-label="Fecha del evento">
-                <svg class="cal-ico" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M7 2v3M17 2v3M3 9h18M4 6h16a1 1 0 0 1 1 1v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                </svg>
-                <p id="eventDateText">Sábado 08.11.25 · 20:30 hs</p>
-            </div>
-
+    <section id="countdown" class="section countdown wash-celeste" data-event-datetime="2025-11-08T20:30:00-03:00" aria-live="polite">
+        <div class="container">
             <!-- Separador delicado -->
             <div class="section-sep" data-variant="spark" aria-hidden="true">
                 <span class="line"></span>
@@ -143,10 +132,17 @@
                 <span class="line"></span>
             </div>
 
-            <!-- Título Faltan (entre fecha y contador) -->
-            <header class="countdown-head center">
+            <div class="section-head">
                 <h2 class="section-title">Faltan</h2>
-            </header>
+            </div>
+                
+                <!-- Tarjeta de fecha -->
+            <div class="date-card frost-card" role="group" aria-label="Fecha del evento">
+                <svg class="cal-ico" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M7 2v3M17 2v3M3 9h18M4 6h16a1 1 0 0 1 1 1v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                <p id="eventDateText">Sábado 08.11.25 · 20:30 hs</p>
+            </div>
 
             <!-- Ticker 1 línea -->
             <div class="ticker line" role="group" aria-label="Cuenta regresiva">
@@ -179,17 +175,14 @@
         <div class="container">
             <h2 class="section-title">Te invito a celebrar mis XV años</h2>
             <div class="message-content">
-                <blockquote>Hay historias y personas que no voy a olvidar y recuerdos como este que siempre voy a guardar. Porque son parte de mi vida es mi deseo que compartan este día tan especial.</blockquote>
+                <blockquote class="frost-card">Hay historias y personas que no voy a olvidar y recuerdos como este que siempre voy a guardar. Porque son parte de mi vida es mi deseo que compartan este día tan especial.</blockquote>
             </div>
         </div>
     </section>
 
     <!-- Location Section -->
-    <section id="lugar" class="section">
-        <div class="section-block vivid bg-lila">
-            <div class="container">
-                <div class="inner-accent"></div>
-          
+    <section id="lugar" class="section wash-lila">
+        <div class="container">
           <div class="section-head">
             <div class="section-sep" data-variant="star" aria-hidden="true">
               <span class="line"></span>
@@ -207,7 +200,7 @@
                data-lng="-60.9757019286323"
                data-label="Quinta Magnolia (Ruta 70, Esperanza)">
             <!-- Mini mapa responsive (embed sin API key) -->
-            <div class="map-embed">
+            <div class="map-embed frost-card">
               <iframe id="mapFrame"
                 src=""
                 loading="lazy" referrerpolicy="no-referrer-when-downgrade"
@@ -222,24 +215,20 @@
             <!-- Dirección visible (editable) -->
             <p class="venue-address">Ruta Provincial 70 — Esperanza, Santa Fe</p>
           </div>
-            </div>
         </div>
     </section>
 
     <!-- Photos Section -->
-    <section id="fotos" class="photos section">
-        <div class="section-block vivid gradient-azul">
-            <div class="container">
-                <div class="inner-accent"></div>
-                
-                <div class="section-head">
-                    <div class="section-sep" data-variant="spark" aria-hidden="true">
-                        <span class="line"></span>
-                        <svg class="icon"><use href="assets/icons/decos.svg#spark"/></svg>
-                        <span class="line"></span>
-                    </div>
-                    <h2 class="section-title title-emoji" aria-label="Fotos">📸<span class="visually-hidden">Fotos</span></h2>
+    <section id="fotos" class="photos section wash-azul">
+        <div class="container">
+            <div class="section-head">
+                <div class="section-sep" data-variant="spark" aria-hidden="true">
+                    <span class="line"></span>
+                    <svg class="icon"><use href="assets/icons/decos.svg#spark"/></svg>
+                    <span class="line"></span>
                 </div>
+                <h2 class="section-title title-emoji" aria-label="Fotos">📸<span class="visually-hidden">Fotos</span></h2>
+            </div>
 
                 <div class="gallery">
               <a class="photo" href="assets/img/ph-1.jpg">
@@ -308,21 +297,18 @@
     </section>
 
     <!-- RSVP Section -->
-    <section id="dresscode" class="section">
-        <div class="section-block vivid bg-azul">
-            <div class="container">
-                <div class="inner-accent"></div>
-                
-                <div class="section-head">
-                    <div class="section-sep" data-variant="bow" aria-hidden="true">
-                    <span class="line"></span>
-                        <svg class="icon"><use href="assets/icons/decos.svg#bow"/></svg>
-                    <span class="line"></span>
-                    </div>
-                    <h2 class="section-title">Dress code</h2>
-                    </div>
+    <section id="dresscode" class="section wash-plateado">
+        <div class="container">
+            <div class="section-head">
+                <div class="section-sep" data-variant="bow" aria-hidden="true">
+                <span class="line"></span>
+                    <svg class="icon"><use href="assets/icons/decos.svg#bow"/></svg>
+                <span class="line"></span>
+                </div>
+                <h2 class="section-title">Dress code</h2>
+            </div>
 
-                <div class="dc-card" role="group" aria-label="Código de vestimenta">
+            <div class="dc-card frost-card" role="group" aria-label="Código de vestimenta">
                     <div class="dc-text">
                       <p class="dc-main">
                         <span class="dc-script">Elegante sport</span>
@@ -340,21 +326,18 @@
         </div>
     </section>
 
-    <section id="confirmacion" class="section">
-        <div class="section-block vivid bg-celeste">
-            <div class="container">
-                <div class="inner-accent"></div>
-                
-                <div class="section-head">
-                  <div class="section-sep" data-variant="spark" aria-hidden="true">
-                    <span class="line"></span>
-                    <svg class="icon"><use href="assets/icons/decos.svg#spark"></use></svg>
-                    <span class="line"></span>
-                  </div>
-                    <h2 class="section-title">Confirmación de asistencia</h2>
-                </div>
+    <section id="confirmacion" class="section wash-celeste">
+        <div class="container">
+            <div class="section-head">
+              <div class="section-sep" data-variant="spark" aria-hidden="true">
+                <span class="line"></span>
+                <svg class="icon"><use href="assets/icons/decos.svg#spark"></use></svg>
+                <span class="line"></span>
+              </div>
+                <h2 class="section-title">Confirmación de asistencia</h2>
+            </div>
 
-        <form id="rsvpForm" class="form-card" novalidate data-wa-number="5493496512511">
+        <form id="rsvpForm" class="form-card frost-card" novalidate data-wa-number="5493496512511">
           <!-- honeypot anti-bot -->
           <input type="text" name="empresa" id="empresa" autocomplete="off" tabindex="-1" aria-hidden="true" hidden>
 
@@ -390,21 +373,18 @@
     </section>
 
     <!-- Payment Section -->
-    <section id="abono" class="payment section">
-        <div class="section-block vivid bg-plateado">
-            <div class="container">
-                <div class="inner-accent"></div>
-                
-                <div class="section-head">
-                    <div class="section-sep" data-variant="star" aria-hidden="true">
-                        <span class="line"></span>
-                        <svg class="icon"><use href="assets/icons/decos.svg#star"/></svg>
-                        <span class="line"></span>
-                    </div>
-                <h2 class="section-title">Valor de la tarjeta</h2>
+    <section id="abono" class="payment section wash-plateado">
+        <div class="container">
+            <div class="section-head">
+                <div class="section-sep" data-variant="star" aria-hidden="true">
+                    <span class="line"></span>
+                    <svg class="icon"><use href="assets/icons/decos.svg#star"/></svg>
+                    <span class="line"></span>
                 </div>
-            
-            <div class="payment-table">
+            <h2 class="section-title">Valor de la tarjeta</h2>
+            </div>
+        
+        <div class="payment-table frost-card">
                 <table>
                     <tr>
                         <td>Adultos</td>
@@ -425,7 +405,7 @@
                 </table>
             </div>
             
-            <div class="payment-info">
+            <div class="payment-info frost-card">
                 <h3>Abonar tarjeta</h3>
                 <div class="payment-alias">
                     Alias: <strong>roxanajossen.mp</strong>

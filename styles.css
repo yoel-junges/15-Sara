@@ -85,6 +85,13 @@
   --frost-strength: .12;
   --radius-xxl: 26px;
   --shadow-soft: 0 18px 50px rgba(20,40,80,.12);
+  
+  /* ===== COLOR WASH SYSTEM ===== */
+  --c-celeste:  #7FD2EF;
+  --c-azul:     #8FA2FF;
+  --c-lila:     #B495E6;
+  --c-plateado: #BFC7CF;
+  --text-dark: #1A2433;
 }
 
 /* ===== RESET Y BASE ===== */
@@ -131,6 +138,58 @@ h2 {
 .container{ width: var(--container); margin-inline:auto; padding: 0 12px; }
 
 .section{ padding: var(--space-6) 0; scroll-margin-top: calc(var(--header-h) + 12px); }
+
+/* ===== COLOR WASH SYSTEM ===== */
+/* cada sección pinta el fondo con un "lavado" suave */
+section.wash-celeste{
+  background: linear-gradient(180deg, #9EE0F4 0%, var(--c-celeste) 40%, #A3D8F1 100%);
+  color: var(--text-dark);
+}
+section.wash-lila{
+  background: linear-gradient(180deg, #C9B2EE 0%, var(--c-lila) 45%, #D6C3F2 100%);
+  color: var(--text-dark);
+}
+section.wash-azul{
+  background: linear-gradient(180deg, #AAB6FF 0%, var(--c-azul) 45%, #BFD0FF 100%);
+  color: var(--text-dark);
+}
+section.wash-plateado{
+  background: linear-gradient(180deg, #D6DCE2 0%, var(--c-plateado) 45%, #E4E9EE 100%);
+  color: var(--text-dark);
+}
+
+/* NO borres el background-image de las secciones */
+.container { background-color: transparent; }
+
+/* Elimina cualquier 'background' aplicado a .section en esa regla */
+
+/* separadores/títulos siguen centrados */
+.section-head{ display:grid; justify-items:center; text-align:center; row-gap:.6rem; }
+.section-sep{ width:min(880px, 94vw); margin-inline:auto; }
+
+/* ===== TARJETAS FROST ===== */
+/* superficie blanca elegante */
+.frost-card{
+  background:#fff;
+  border-radius: 22px;
+  box-shadow: 0 18px 50px rgba(20,40,80,.12);
+  backdrop-filter: saturate(150%) blur(0px); /* sutil, sin "lavar" colores */
+  width: min(980px, 94vw);
+  margin: 10px auto 0;
+  overflow: hidden;
+  color: var(--text-dark);
+}
+
+/* variantes comunes de contenido dentro de cards */
+.frost-card .body{ padding: clamp(14px, 3vw, 22px); }
+
+/* map embed como card (no franja a todo ancho) */
+#lugar .map-embed{ aspect-ratio: 16/10; }
+#lugar .map-embed iframe{ display:block; width:100%; height:100%; border:0; background:transparent; }
+
+/* evitar "huecos" arriba/abajo dentro de cada sección */
+.section > .container > *:first-child{ margin-top:0; }
+.section > .container > *:last-child{  margin-bottom:0; }
 
 .section h2 {
   margin-bottom: 0.6rem;
@@ -179,12 +238,11 @@ h2 {
 .section-sep.in{ opacity:1; transform: translateY(0); }
 
 .section-sep .line{
-  flex:1 1 auto; height:2px; border-radius:2px;
-  background: linear-gradient(90deg,
-    rgba(167,223,242,0) 0%,
-    rgba(167,223,242,.85) 35%,
-    rgba(203,184,234,.85) 65%,
-    rgba(203,184,234,0) 100%);
+  flex:1 1 auto; 
+  height:2px; 
+  border-radius:2px;
+  background: linear-gradient(90deg, var(--c-celeste), var(--c-lila));
+  opacity:.8;
 }
 .section-sep .icon{
   width:22px; height:22px; color:#a7dff2;
@@ -613,6 +671,23 @@ h2 {
   box-shadow: 0 12px 28px rgba(20,40,80,.14);
   transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
 }
+
+/* Botón primario sobre wash fuerte */
+section.wash-celeste .btn-primary,
+section.wash-lila .btn-primary,
+section.wash-azul .btn-primary,
+section.wash-plateado .btn-primary{
+  background:#fff; 
+  color:#1A2433; 
+  border:1px solid rgba(0,0,0,.06);
+}
+section.wash-celeste .btn-primary:hover,
+section.wash-lila .btn-primary:hover,
+section.wash-azul .btn-primary:hover,
+section.wash-plateado .btn-primary:hover{ 
+  filter: brightness(.98); 
+}
+
 .btn-primary:hover{
   transform: translateY(-2px);
   box-shadow: 0 16px 40px rgba(20,40,80,.18);
@@ -1467,4 +1542,44 @@ a:focus {
     --texto: #000000;
     --fondo: #FFFFFF;
   }
+}
+
+/* ===== PARCHES MÍNIMOS - BLINDAR CORTES ===== */
+
+/* A) Date-card: que se perciba como "tarjeta" y no como franja */
+.date-card{
+  width: min(780px, 92vw);
+  margin: 10px auto 0;
+  background: rgba(255,255,255,.82); /* sigue blanca, pero no choca */
+  border-radius: 18px;
+  box-shadow: 0 12px 36px rgba(20,40,80,.12);
+  padding: 10px 14px;
+  backdrop-filter: saturate(140%) blur(0px);
+}
+
+/* si la date-card ya está metida dentro de otra card, no dupliques sombra */
+.date-card:where(.inside-card){ box-shadow: none; background: transparent; }
+
+/* B) Micro-solape entre secciones con wash (anti línea subpíxel) */
+:root{ --seam-overlap: 8px; } /* podés subir a 12px si en tu celu aparece una línea muy finita */
+
+/* Aplica solo entre secciones wash contiguas */
+section.wash-celeste + section.wash-lila,
+section.wash-lila + section.wash-azul,
+section.wash-azul + section.wash-plateado,
+section.wash-plateado + section.wash-celeste,
+section.wash-celeste + section.wash-plateado,
+section.wash-plateado + section.wash-lila,
+section.wash-lila + section.wash-celeste,
+section.wash-azul + section.wash-celeste {
+  margin-top: calc(-1 * var(--seam-overlap));
+}
+
+/* Cualquier .wash que haya sido reseteado por error, vuelve a ganar */
+section.wash-celeste,
+section.wash-lila,
+section.wash-azul,
+section.wash-plateado{
+  background-color: transparent; /* no tapa el degradé */
+  /* NO usar 'background' aquí */
 }
