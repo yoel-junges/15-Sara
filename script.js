@@ -335,7 +335,7 @@ function scrollToSection(sectionId) {
         if(r) r.checked = true;
       }
       form.restricciones.value = saved.restricciones || '';
-      form.acompanantes.value = saved.acompanantes ?? '';
+      // form.acompanantes.value = saved.acompanantes ?? ''; // Campo eliminado
     }
   }catch{}
 
@@ -351,7 +351,7 @@ function scrollToSection(sectionId) {
       nombre: form.nombre.value.trim(),
       asistencia: (form.querySelector('input[name="asistencia"]:checked') || {}).value || '',
       restricciones: form.restricciones.value.trim(),
-      acompanantes: form.acompanantes.value ? Number(form.acompanantes.value) : ''
+      // acompanantes: form.acompanantes.value ? Number(form.acompanantes.value) : '' // Campo eliminado
     };
     localStorage.setItem(LS_KEY, JSON.stringify(data));
     showToast('Borrador guardado.');
@@ -368,7 +368,7 @@ function scrollToSection(sectionId) {
     setError('err-asistencia','');
   }
 
-  function buildMessage({nombre, asistencia, restricciones, acompanantes}) {
+  function buildMessage({nombre, asistencia, restricciones}) {
     const root = document.querySelector('#countdown');
     const iso = root ? root.getAttribute('data-event-datetime') : null;
     let fechaLegible = '';
@@ -387,7 +387,7 @@ function scrollToSection(sectionId) {
       fechaLegible ? `Evento: ${fechaLegible}` : '',
       line('Nombre', nombre),
       line('Asistencia', asistencia),
-      line('Acompañantes', (acompanantes === '' ? '-' : acompanantes)),
+      // line('Acompañantes', (acompanantes === '' ? '-' : acompanantes)), // Campo eliminado
       line('Restricciones', (restricciones || '-'))
     ].filter(Boolean);
 
@@ -405,7 +405,7 @@ function scrollToSection(sectionId) {
     const asistenciaEl = form.querySelector('input[name="asistencia"]:checked');
     const asistencia = asistenciaEl ? asistenciaEl.value : '';
     const restricciones = form.restricciones.value.trim();
-    const acompanantes = form.acompanantes.value ? Number(form.acompanantes.value) : '';
+    // const acompanantes = form.acompanantes.value ? Number(form.acompanantes.value) : ''; // Campo eliminado
 
     let valid = true;
     if(!nombre){
@@ -428,7 +428,7 @@ function scrollToSection(sectionId) {
       return;
     }
 
-    const text = buildMessage({nombre, asistencia, restricciones, acompanantes});
+    const text = buildMessage({nombre, asistencia, restricciones});
     const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
 
     // Deshabilitar mientras abrimos
@@ -436,7 +436,20 @@ function scrollToSection(sectionId) {
     if(btnSend){ btnSend.disabled = true; setTimeout(()=> { btnSend.disabled = false; }, 1500); }
 
     // Abrir WhatsApp
-    window.open(url, '_blank', 'noopener,noreferrer');
+    try {
+      window.open(url, '_blank', 'noopener,noreferrer');
+      showToast('Redirigiendo a WhatsApp...');
+    } catch (error) {
+      console.error('Error al abrir WhatsApp:', error);
+      // Fallback: copiar mensaje al portapapeles
+      try {
+        navigator.clipboard.writeText(text);
+        showToast('Mensaje copiado al portapapeles. Pegalo en WhatsApp manualmente.');
+      } catch (clipboardError) {
+        console.error('Error al copiar al portapapeles:', clipboardError);
+        showToast('Error al abrir WhatsApp. Por favor, contactá directamente.');
+      }
+    }
   });
 
 })();

@@ -959,6 +959,11 @@ input[type="text"], textarea, input[type="number"]{
   font-size: 1rem;
   line-height: 1.4;
 }
+
+/* Ocultar campo honeypot anti-bot */
+input[hidden], input[type="text"][hidden] {
+  display: none !important;
+}
 input:focus, textarea:focus{
   outline:none; border-color:#b6c7ff; box-shadow:0 0 0 4px rgba(182,199,255,.25);
 }
@@ -1658,6 +1663,11 @@ html, body{ overflow-x: hidden; }
   letter-spacing: .2px;
   margin-bottom: 6px;
   color: #0e1c2f;              /* bien legible sobre el wash */
+}
+
+/* Ocultar campo honeypot en confirmación */
+#confirmacion input[hidden], #confirmacion input[type="text"][hidden] {
+  display: none !important;
 }
 
 /* Inputs y textarea: ÚNICOS elementos con blanco */
